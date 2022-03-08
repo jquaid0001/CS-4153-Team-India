@@ -355,22 +355,6 @@
             </objects>
             <point key="canvasLocation" x="28.985507246376812" y="69.642857142857139"/>
         </scene>
-        <!--Main View Controller-->
-        <scene sceneID="x5o-iz-RS1">
-            <objects>
-                <viewController title="Home" id="pLU-jY-S7N" userLabel="Main View Controller" customClass="HomeViewController" customModule="Team_India" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Hph-BM-JNi">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="cM2-5g-cYr"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="pVv-Q8-3tB"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Anb-eP-T0G" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1762" y="420"/>
-        </scene>
         <!--Line Graph Nav Controller-->
         <scene sceneID="U3a-E6-8D3">
             <objects>
