@@ -246,7 +246,7 @@
             <objects>
                 <viewController title="Graph" id="3gh-Lq-vdl" userLabel="Graph View Controller" customClass="GraphViewController" customModule="Team_India" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="y1S-NB-3eV">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="42N-uX-T2H"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -273,9 +273,6 @@
                                 <buttonConfiguration key="configuration" style="plain" title="GraphType">
                                     <color key="baseForegroundColor" systemColor="labelColor"/>
                                 </buttonConfiguration>
-                                <connections>
-                                    <segue destination="3gh-Lq-vdl" kind="show" id="4Be-Q1-rgr"/>
-                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Detail View" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ifx-5n-K4b">
                                 <rect key="frame" x="89" y="44" width="236" height="43"/>
