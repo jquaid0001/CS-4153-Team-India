@@ -166,6 +166,9 @@
                                         <rect key="frame" x="10" y="220" width="314" height="34"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="filled" title="Sign Up"/>
+                                        <connections>
+                                            <action selector="signUpButtonHandler:" destination="QHp-gQ-aKE" eventType="touchUpInside" id="5bA-Xg-toD"/>
+                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Error Message Here" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g4o-eB-udg">
                                         <rect key="frame" x="10" y="264" width="314" height="34"/>
@@ -220,6 +223,14 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="NAm-3d-XRt"/>
+                    <connections>
+                        <outlet property="emailAddrField" destination="AeE-DX-cEz" id="oPO-xb-3Qk"/>
+                        <outlet property="firstNameField" destination="W4y-vI-mRn" id="ZeM-GO-IFA"/>
+                        <outlet property="lastNameField" destination="k1H-ed-o3S" id="b8U-Up-f15"/>
+                        <outlet property="password1Field" destination="A73-cv-tbZ" id="mwg-zL-rKc"/>
+                        <outlet property="password2Field" destination="7lv-8H-ksL" id="WDa-2C-FqH"/>
+                        <outlet property="signUpButton" destination="K4l-PK-3xd" id="KcM-9A-hVl"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2fV-aC-IPS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
