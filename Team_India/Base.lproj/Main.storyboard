@@ -370,7 +370,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vge-dW-mCU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1075" y="1789"/>
+            <point key="canvasLocation" x="1959" y="1426"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="A03-fo-10R">
@@ -389,7 +389,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AEl-Hp-O8J" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1752" y="1081"/>
+            <point key="canvasLocation" x="2636" y="718"/>
         </scene>
         <!--Bar Graph Nav Controller-->
         <scene sceneID="EQZ-Mh-kuH">
@@ -406,7 +406,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tlS-0v-5Qj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1775" y="1789"/>
+            <point key="canvasLocation" x="2659" y="1426"/>
         </scene>
         <!--Histogram Nav Controller-->
         <scene sceneID="6HL-wN-KvB">
@@ -423,7 +423,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9EJ-YY-s3U" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2446" y="1789"/>
+            <point key="canvasLocation" x="3330" y="1426"/>
         </scene>
         <!--Line Graph-->
         <scene sceneID="CHd-oA-PyC">
@@ -445,7 +445,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tns-A6-ARf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1075" y="2452"/>
+            <point key="canvasLocation" x="1972" y="2158"/>
         </scene>
         <!--Bar Graph-->
         <scene sceneID="88r-58-G4b">
@@ -467,7 +467,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PUg-MH-hZ8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1752" y="2452"/>
+            <point key="canvasLocation" x="2649" y="2158"/>
         </scene>
         <!--Histogram Graph-->
         <scene sceneID="KWT-Ta-29A">
@@ -489,7 +489,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="P6h-Nv-cvh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2446" y="2452"/>
+            <point key="canvasLocation" x="3343" y="2158"/>
         </scene>
     </scenes>
     <resources>
