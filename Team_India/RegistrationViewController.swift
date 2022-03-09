@@ -11,6 +11,7 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
     // Get a FormValidationUtil var
     let formValidation = FormValidationUtil()
     
+    @IBOutlet weak var errorLabel: UILabel!
     @IBOutlet weak var signUpButton: UIButton!
     
     @IBOutlet weak var firstNameField: UITextField!
@@ -24,6 +25,14 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Set the errorLabel to invisible
+        errorLabel.alpha = 0
+
+        // Set the color of the back button to white for visibility
+        self.navigationController?.navigationBar.tintColor = UIColor.white
+        // Show the back button
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
         
         password1Field.delegate = self
         password2Field.delegate = self
@@ -42,7 +51,6 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
     }
     */
 
-    
     // MARK: - Handlers
     
     @IBAction func signUpButtonHandler(_ sender: UIButton) {
@@ -50,19 +58,32 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
         
         // Get the form fields' text and check if empty
         guard let firstName = firstNameField.text,
+              !firstName.isEmpty,
               let lastName = lastNameField.text,
+              !lastName.isEmpty,
               let email = emailAddrField.text,
+              !email.isEmpty,
               let password1 = password1Field.text,
+              !password1.isEmpty,
               let password2 = password2Field.text,
-              !firstName.isEmpty && !lastName.isEmpty && !email.isEmpty && !password1.isEmpty && !password2.isEmpty else {
-                  // add code to highlight password field(s) that's empty
-                  return
-              }
+              !password2.isEmpty
+            else {
+                // add code to highlight password field(s) that's empty
+                return
+            }
         
-        #warning("add code to check email addr format")
+        if !formValidation.isEmailFormatted(emailField: email) {
+            // show error and highlight email field
+            #warning("add code to show email isn't formatted")
+            print("email is formatted wrong")
+            return
+        } else if !formValidation.doPasswordsMatch(password1: password1, password2: password2) {
+            #warning("add code to show passwords don't match")
+            print("passwords don't match")
+            return
+        }
         
-        // Edit to either display highlighted password field(s) that don't match, or error on screen or both
-        print(formValidation.doPasswordsMatch(password1: password1, password2: password2))
+        #warning("add unwind segue here back to log in controller")
     }
 }
 

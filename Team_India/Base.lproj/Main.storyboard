@@ -55,7 +55,7 @@
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="filled" title="LOG IN"/>
                                         <connections>
-                                            <segue destination="A17-4g-kQZ" kind="show" identifier="Logged In" id="zqx-tk-MRp"/>
+                                            <action selector="logInButtonHandler:" destination="BYZ-38-t0r" eventType="touchUpInside" id="CGP-4B-e4V"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Error Message Here" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ohl-Iz-Oej">
@@ -114,6 +114,13 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Tuh-nS-bFp"/>
+                    <connections>
+                        <outlet property="emailAddrField" destination="fNZ-Gp-eRb" id="WYg-oV-oM5"/>
+                        <outlet property="errorLabel" destination="ohl-Iz-Oej" id="yCt-7Q-heg"/>
+                        <outlet property="logInButton" destination="y7W-mc-Mr8" id="WCf-oy-d9H"/>
+                        <outlet property="passwordField" destination="Ogk-sU-g8o" id="r3H-U2-bjU"/>
+                        <segue destination="A17-4g-kQZ" kind="show" identifier="Logged In" id="hOg-4Q-gfM"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -225,6 +232,7 @@
                     <navigationItem key="navigationItem" id="NAm-3d-XRt"/>
                     <connections>
                         <outlet property="emailAddrField" destination="AeE-DX-cEz" id="oPO-xb-3Qk"/>
+                        <outlet property="errorLabel" destination="g4o-eB-udg" id="uFG-Ud-8cM"/>
                         <outlet property="firstNameField" destination="W4y-vI-mRn" id="ZeM-GO-IFA"/>
                         <outlet property="lastNameField" destination="k1H-ed-o3S" id="b8U-Up-f15"/>
                         <outlet property="password1Field" destination="A73-cv-tbZ" id="mwg-zL-rKc"/>
