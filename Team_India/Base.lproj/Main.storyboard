@@ -22,20 +22,20 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="divingHelmet2PNGMagic" translatesAutoresizingMaskIntoConstraints="NO" id="Gjc-Pv-wz3">
-                                <rect key="frame" x="82" y="75" width="250" height="187.5"/>
+                                <rect key="frame" x="82" y="119" width="250" height="187.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="Gjc-Pv-wz3" secondAttribute="height" multiplier="4:3" id="DQZ-jS-h1T"/>
                                     <constraint firstAttribute="width" constant="250" id="jur-MC-fhS"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="deepWork" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="28z-sX-vGr">
-                                <rect key="frame" x="139.5" y="272.5" width="135.5" height="37"/>
+                                <rect key="frame" x="139.5" y="316.5" width="135.5" height="37"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="11" translatesAutoresizingMaskIntoConstraints="NO" id="4Ve-tl-rbz" userLabel="Log In Stack">
-                                <rect key="frame" x="40" y="373" width="334" height="169"/>
+                                <rect key="frame" x="40" y="417" width="334" height="169"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fNZ-Gp-eRb">
                                         <rect key="frame" x="10" y="0.0" width="314" height="34"/>
@@ -139,7 +139,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="3Bq-cm-I8s">
-                                <rect key="frame" x="40" y="348" width="334" height="298"/>
+                                <rect key="frame" x="40" y="370" width="334" height="298"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="First Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="W4y-vI-mRn">
                                         <rect key="frame" x="10" y="0.0" width="314" height="34"/>
@@ -202,13 +202,13 @@
                                 </constraints>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to the deepWork family!  Please enter your information below." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6is-GX-r9K">
-                                <rect key="frame" x="49" y="222" width="316.5" height="48"/>
+                                <rect key="frame" x="49" y="266" width="316.5" height="48"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="divingHelmet2PNGMagic" translatesAutoresizingMaskIntoConstraints="NO" id="4SM-1v-xPL">
-                                <rect key="frame" x="107" y="56" width="200" height="150"/>
+                                <rect key="frame" x="107" y="100" width="200" height="150"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="4SM-1v-xPL" secondAttribute="height" multiplier="4:3" id="HQz-gf-cLm"/>
                                     <constraint firstAttribute="width" constant="200" id="fkB-wi-a7u"/>
@@ -437,9 +437,10 @@
         <!--Navigation Controller-->
         <scene sceneID="xKt-Hp-Qpx">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="e6C-0g-Cfm" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="e6C-0g-Cfm" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Pie-0E-SmU">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>

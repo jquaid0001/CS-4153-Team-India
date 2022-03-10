@@ -31,8 +31,6 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
 
         // Set the color of the back button to white for visibility
         self.navigationController?.navigationBar.tintColor = UIColor.white
-        // Show the back button
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
         
         password1Field.delegate = self
         password2Field.delegate = self

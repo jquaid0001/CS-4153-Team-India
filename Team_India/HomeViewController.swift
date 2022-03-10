@@ -12,6 +12,8 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        #warning("remove back button and show Logout in top right")
+        
         // Do any additional setup after loading the view.
     }
     
