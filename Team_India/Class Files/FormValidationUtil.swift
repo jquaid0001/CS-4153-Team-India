@@ -18,7 +18,11 @@ class FormValidationUtil {
     // Verifies that the password created in the registration page meets complexity requirements
     func isPasswordComplex(password : String) -> Bool {
         
-        return false
+        // Set up an NSPredicate with a regex to check for minimum 8 character password with a special character, uppercase, lowercase and/or number
+        let passwordCheck = NSPredicate(format: "SELF MATCHES %@",
+                                        "^(?=.*[a-z])(?=.*[$@$#!%*?&])[A-Za-z\\d$@$#!%*?&]{8,}")
+        
+        return passwordCheck.evaluate(with: password)
     }
     
     // Verifies that the email address is formatted properly. This is not exhaustive, it's a precheck before sending to the authentication server for true verification

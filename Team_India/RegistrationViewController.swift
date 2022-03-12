@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import FirebaseAuth
+import Firebase
 
 class RegistrationViewController: UIViewController, UITextFieldDelegate {
     // Get a FormValidationUtil var
@@ -54,34 +56,81 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
     @IBAction func signUpButtonHandler(_ sender: UIButton) {
         // Do some form validation before sending to the authentication server for sign up
         
-        // Get the form fields' text and check if empty
-        guard let firstName = firstNameField.text,
+        // Get the form fields' text, trim the whitespace from first, last and email and check if empty
+        guard let firstName = firstNameField.text?.trimmingCharacters(in: .whitespacesAndNewlines),
               !firstName.isEmpty,
-              let lastName = lastNameField.text,
+              let lastName = lastNameField.text?.trimmingCharacters(in: .whitespacesAndNewlines),
               !lastName.isEmpty,
-              let email = emailAddrField.text,
+              let email = emailAddrField.text?.trimmingCharacters(in: .whitespacesAndNewlines),
               !email.isEmpty,
               let password1 = password1Field.text,
               !password1.isEmpty,
               let password2 = password2Field.text,
               !password2.isEmpty
             else {
-                // add code to highlight password field(s) that's empty
+                showErrorMessage(message: "Please complete all fields")
                 return
             }
         
         if !formValidation.isEmailFormatted(emailField: email) {
             // show error and highlight email field
-            #warning("add code to show email isn't formatted")
-            print("email is formatted wrong")
+            showErrorMessage(message: "Email incorrect")
             return
         } else if !formValidation.doPasswordsMatch(password1: password1, password2: password2) {
-            #warning("add code to show passwords don't match")
-            print("passwords don't match")
+            showErrorMessage(message: "passwords don't match")
+            return
+        } else if !formValidation.isPasswordComplex(password: password1) {
+            showErrorMessage(message: "Password not complex")
+            return
+        } else {
+            // Send the user registration to Firebase to create or error on duplicate
+            Auth.auth().createUser(withEmail: email, password: password1) { result, error in
+                
+                // Check for any errors
+                if error != nil {
+                    self.showErrorMessage(message: error?.localizedDescription ?? "Error creating user")
+                } else {
+                    // User creation successfull, save the first and last name in the Firestore DB and then unwind back to Log In View may want to retry on failure.
+                    let fireDB = Firestore.firestore()
+                    fireDB.collection("users").addDocument(data: [
+                        "firstname": firstName,
+                        "lastname": lastName,
+                        "uid": result!.user.uid]) { dbError in
+                            if dbError != nil {
+                                self.showErrorMessage(message: "Failed to store DB info")
+                                print("Saving user to DB failed for reason: \(dbError?.localizedDescription ?? "Unknown DB save error")")
+                            }
+                    }
+                    
+                    // User is registered, send them to the Home View Controller
+                    self.goToHome()
+                }
+            }
+        }
+        
+    }
+    
+    func showErrorMessage(message : String) {
+        
+        // Set the errorLabel
+        errorLabel.text = message
+        
+        // Set the alpha to 1 to show the message
+        errorLabel.alpha = 1
+    }
+    
+    // Sends the user to the hoome page upon successful registration/log in
+    func goToHome() {
+        
+        // Get the Home View Controller storyboard
+        guard let homeVC = storyboard?.instantiateViewController(withIdentifier: "Home") as? HomeViewController else {
+            showErrorMessage(message: "Unable to log in")
             return
         }
         
-        #warning("add unwind segue here back to log in controller")
+        // Change the root VC to the homeVC
+        view.window?.rootViewController = homeVC
+        view.window?.makeKeyAndVisible()
     }
 }
 

@@ -132,7 +132,6 @@
                         <outlet property="errorLabel" destination="ohl-Iz-Oej" id="yCt-7Q-heg"/>
                         <outlet property="logInButton" destination="y7W-mc-Mr8" id="WCf-oy-d9H"/>
                         <outlet property="passwordField" destination="Ogk-sU-g8o" id="r3H-U2-bjU"/>
-                        <segue destination="A17-4g-kQZ" kind="show" identifier="Logged In" id="hOg-4Q-gfM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -142,7 +141,7 @@
         <!--Registration View Controller-->
         <scene sceneID="x6K-Ap-9Df">
             <objects>
-                <viewController title="Registration" id="QHp-gQ-aKE" userLabel="Registration View Controller" customClass="RegistrationViewController" customModule="Team_India" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Registration" title="Registration" useStoryboardIdentifierAsRestorationIdentifier="YES" id="QHp-gQ-aKE" userLabel="Registration View Controller" customClass="RegistrationViewController" customModule="Team_India" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="C2y-14-xpA">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -257,10 +256,10 @@
             </objects>
             <point key="canvasLocation" x="1760.8695652173915" y="-231.02678571428569"/>
         </scene>
-        <!--Main View Controller-->
+        <!--Home View Controller-->
         <scene sceneID="UFi-xS-3S0">
             <objects>
-                <viewController title="Home" id="A17-4g-kQZ" userLabel="Main View Controller" customClass="HomeViewController" customModule="Team_India" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Home" title="Home" useStoryboardIdentifierAsRestorationIdentifier="YES" id="A17-4g-kQZ" userLabel="Home View Controller" customClass="HomeViewController" customModule="Team_India" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="1Je-WX-Yom">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -610,7 +609,7 @@
         <image name="divingHelmet2PNGMagic" width="600" height="600"/>
         <image name="drippingWorkWhite" width="1989" height="524"/>
         <namedColor name="AccentColor">
-            <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.79199999570846558" blue="0.15700000524520874" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

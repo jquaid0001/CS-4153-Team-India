@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class LoginViewController: UIViewController {
     
@@ -47,14 +48,47 @@ class LoginViewController: UIViewController {
             return
         } else {
             // send email and password to authentication server and process
-            #warning("Add authentication here and perform segue based on success")
-            performSegue(withIdentifier: "Logged In", sender: self)
+            Auth.auth().signIn(withEmail: email, password: password) { [weak self] result, error in
+                
+                if error != nil {
+                    // Show the error from Firebase
+                    self?.showErrorMessage(message: error?.localizedDescription ?? "Unknown login error")
+                } else {
+                    // User succesfully logged in, go to Home
+                    self?.goToHome()
+                }
+            }
         }
-        
-        
-        
     }
     
+    
+    // MARK: - Funcs
+    
+    
+    func showErrorMessage(message : String) {
+        
+        // Set the errorLabel
+        errorLabel.text = message
+        
+        // Set the alpha to 1 to show the message
+        errorLabel.alpha = 1
+    }
+    
+    // Sends the user to the hoome page upon successful registration/log in
+    func goToHome() {
+        
+        // Get the Home View Controller storyboard
+        guard let homeVC = storyboard?.instantiateViewController(withIdentifier: "Home") as? HomeViewController else {
+            showErrorMessage(message: "Unable to log in")
+            return
+        }
+        
+        // Change the root VC to the homeVC
+        view.window?.rootViewController = homeVC
+        view.window?.makeKeyAndVisible()
+    }
+        
+        
     /*
     // MARK: - Navigation
 
