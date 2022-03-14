@@ -10,8 +10,6 @@ import FirebaseAuth
 import Firebase
 
 class RegistrationViewController: UIViewController, UITextFieldDelegate {
-    // Get a FormValidationUtil var
-    let formValidation = FormValidationUtil()
 
     @IBOutlet weak var signUpButton: UIButton!
     
@@ -68,14 +66,14 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
                 return
             }
         
-        if !formValidation.isEmailFormatted(emailField: email) {
+        if !FormValidationUtil.isEmailFormatted(emailField: email) {
             // show error and highlight email field
             showErrorMessage(message: "Email is not formatted properly.")
             return
-        } else if !formValidation.doPasswordsMatch(password1: password1, password2: password2) {
+        } else if !FormValidationUtil.doPasswordsMatch(password1: password1, password2: password2) {
             showErrorMessage(message: "Passwords do not match.")
             return
-        } else if !formValidation.isPasswordComplex(password: password1) {
+        } else if !FormValidationUtil.isPasswordComplex(password: password1) {
             showErrorMessage(message: "Password must meet complexity requirements: \n-8 characters long\n-1 upper case\n-1 lower case\n-1 special character (!@#$%^&*)")
             return
         } else {

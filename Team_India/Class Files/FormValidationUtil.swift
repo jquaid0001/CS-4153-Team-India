@@ -11,12 +11,12 @@ import UIKit
 class FormValidationUtil {
 
     // Verifies that new passwords match in the registration page
-    func doPasswordsMatch(password1 : String, password2 : String) -> Bool {
+    static func doPasswordsMatch(password1 : String, password2 : String) -> Bool {
         password1 == password2 ? true : false
     }
     
     // Verifies that the password created in the registration page meets complexity requirements
-    func isPasswordComplex(password : String) -> Bool {
+    static func isPasswordComplex(password : String) -> Bool {
         
         // Set up an NSPredicate with a regex to check for minimum 8 character password with a special character, uppercase, lowercase and/or number
         let passwordCheck = NSPredicate(format: "SELF MATCHES %@",
@@ -26,7 +26,7 @@ class FormValidationUtil {
     }
     
     // Verifies that the email address is formatted properly. This is not exhaustive, it's a precheck before sending to the authentication server for true verification
-    func isEmailFormatted(emailField : String) -> Bool {
+    static func isEmailFormatted(emailField : String) -> Bool {
         // Make a range for the emailField String
         let range = NSMakeRange(0, NSString(string: emailField).length)
         

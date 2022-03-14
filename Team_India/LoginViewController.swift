@@ -25,8 +25,6 @@ class LoginViewController: UIViewController {
     // MARK: - Handlers
 
     @IBAction func logInButtonHandler(_ sender: UIButton) {
-        // Set up a FormValidationUtil var
-        let formValidation = FormValidationUtil()
         
         // Get the text field data and verify they are non-empty
         guard let email = emailAddrField.text,
@@ -39,9 +37,9 @@ class LoginViewController: UIViewController {
         }
         
         // if email is formatted improperly, don't send the data to authentication just post an error
-        if !formValidation.isEmailFormatted(emailField: email) {
+        if !FormValidationUtil.isEmailFormatted(emailField: email) {
             // show error and highlight email field
-            print("Email is not formatted properly.")
+            showErrorMessage(message: "Email is not formatted properly.")
             return
         } else {
             // send email and password to authentication server and process
