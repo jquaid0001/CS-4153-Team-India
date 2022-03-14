@@ -13,14 +13,11 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var emailAddrField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var logInButton: UIButton!
-    @IBOutlet weak var errorLabel: UILabel!
     
     // MARK: - View Lifecycles
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Set the errorLabel to invisible
-        errorLabel.alpha = 0
 
     }
     
@@ -44,7 +41,7 @@ class LoginViewController: UIViewController {
         // if email is formatted improperly, don't send the data to authentication just post an error
         if !formValidation.isEmailFormatted(emailField: email) {
             // show error and highlight email field
-            print("email is formatted wrong")
+            print("Email is not formatted properly.")
             return
         } else {
             // send email and password to authentication server and process
@@ -67,11 +64,14 @@ class LoginViewController: UIViewController {
     
     func showErrorMessage(message : String) {
         
-        // Set the errorLabel
-        errorLabel.text = message
-        
-        // Set the alpha to 1 to show the message
-        errorLabel.alpha = 1
+        // Show an AlertController
+        let alertController = UIAlertController(title: "Error Logging In",
+                                          message: message,
+                                                preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Ok", style: .default)
+        // Add the action to the alertController
+        alertController.addAction(okAction)
+        self.present(alertController, animated: true)
     }
     
     // Sends the user to the hoome page upon successful registration/log in

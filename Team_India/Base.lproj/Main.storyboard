@@ -34,7 +34,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="11" translatesAutoresizingMaskIntoConstraints="NO" id="4Ve-tl-rbz" userLabel="Log In Stack">
-                                <rect key="frame" x="40" y="420" width="334" height="169"/>
+                                <rect key="frame" x="40" y="420" width="334" height="124"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fNZ-Gp-eRb">
                                         <rect key="frame" x="10" y="0.0" width="314" height="34"/>
@@ -57,19 +57,11 @@
                                             <action selector="logInButtonHandler:" destination="BYZ-38-t0r" eventType="touchUpInside" id="CGP-4B-e4V"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Error Message Here" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ohl-Iz-Oej">
-                                        <rect key="frame" x="10" y="135" width="314" height="34"/>
-                                        <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
-                                        <color key="textColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="fNZ-Gp-eRb" secondAttribute="trailing" constant="10" id="JJ7-0R-182"/>
-                                    <constraint firstItem="ohl-Iz-Oej" firstAttribute="height" secondItem="fNZ-Gp-eRb" secondAttribute="height" id="KIl-hd-N0b"/>
                                     <constraint firstItem="Ogk-sU-g8o" firstAttribute="height" secondItem="fNZ-Gp-eRb" secondAttribute="height" id="Kec-6P-PlN"/>
                                     <constraint firstItem="y7W-mc-Mr8" firstAttribute="width" secondItem="fNZ-Gp-eRb" secondAttribute="width" id="Mh9-h4-RSA"/>
-                                    <constraint firstItem="ohl-Iz-Oej" firstAttribute="width" secondItem="fNZ-Gp-eRb" secondAttribute="width" id="ZFK-sb-3jJ"/>
                                     <constraint firstItem="y7W-mc-Mr8" firstAttribute="height" secondItem="fNZ-Gp-eRb" secondAttribute="height" id="uLr-Xn-lxo"/>
                                     <constraint firstItem="Ogk-sU-g8o" firstAttribute="width" secondItem="fNZ-Gp-eRb" secondAttribute="width" id="y2V-sp-wiN"/>
                                     <constraint firstItem="fNZ-Gp-eRb" firstAttribute="leading" secondItem="4Ve-tl-rbz" secondAttribute="leading" constant="10" id="z8B-pu-RM5"/>
@@ -129,7 +121,6 @@
                     <navigationItem key="navigationItem" id="Tuh-nS-bFp"/>
                     <connections>
                         <outlet property="emailAddrField" destination="fNZ-Gp-eRb" id="WYg-oV-oM5"/>
-                        <outlet property="errorLabel" destination="ohl-Iz-Oej" id="yCt-7Q-heg"/>
                         <outlet property="logInButton" destination="y7W-mc-Mr8" id="WCf-oy-d9H"/>
                         <outlet property="passwordField" destination="Ogk-sU-g8o" id="r3H-U2-bjU"/>
                     </connections>
@@ -146,12 +137,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.84999999999999998" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="background1" translatesAutoresizingMaskIntoConstraints="NO" id="w74-bs-9qG">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="background1" translatesAutoresizingMaskIntoConstraints="NO" id="w74-bs-9qG">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="3Bq-cm-I8s">
-                                <rect key="frame" x="40" y="370" width="334" height="298"/>
+                                <rect key="frame" x="40" y="370" width="334" height="254"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="First Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="W4y-vI-mRn">
                                         <rect key="frame" x="10" y="0.0" width="314" height="34"/>
@@ -189,21 +180,13 @@
                                             <action selector="signUpButtonHandler:" destination="QHp-gQ-aKE" eventType="touchUpInside" id="5bA-Xg-toD"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Error Message Here" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g4o-eB-udg">
-                                        <rect key="frame" x="10" y="264" width="314" height="34"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                        <color key="textColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="7lv-8H-ksL" firstAttribute="height" secondItem="W4y-vI-mRn" secondAttribute="height" id="1oE-VS-WCQ"/>
-                                    <constraint firstItem="g4o-eB-udg" firstAttribute="width" secondItem="W4y-vI-mRn" secondAttribute="width" id="79K-Gi-ogQ"/>
                                     <constraint firstItem="A73-cv-tbZ" firstAttribute="height" secondItem="W4y-vI-mRn" secondAttribute="height" id="7DJ-86-ZwA"/>
                                     <constraint firstItem="AeE-DX-cEz" firstAttribute="height" secondItem="W4y-vI-mRn" secondAttribute="height" id="8KC-Ko-W5p"/>
                                     <constraint firstItem="AeE-DX-cEz" firstAttribute="width" secondItem="W4y-vI-mRn" secondAttribute="width" id="AXb-hy-bal"/>
                                     <constraint firstItem="A73-cv-tbZ" firstAttribute="width" secondItem="W4y-vI-mRn" secondAttribute="width" id="D5n-u2-6Yy"/>
-                                    <constraint firstItem="g4o-eB-udg" firstAttribute="height" secondItem="W4y-vI-mRn" secondAttribute="height" id="DGf-X2-QqB"/>
                                     <constraint firstItem="K4l-PK-3xd" firstAttribute="width" secondItem="W4y-vI-mRn" secondAttribute="width" id="PB6-BH-Ok2"/>
                                     <constraint firstItem="K4l-PK-3xd" firstAttribute="height" secondItem="W4y-vI-mRn" secondAttribute="height" id="UGW-hX-lau"/>
                                     <constraint firstItem="k1H-ed-o3S" firstAttribute="height" secondItem="W4y-vI-mRn" secondAttribute="height" id="jDm-04-4mt"/>
@@ -244,7 +227,6 @@
                     <navigationItem key="navigationItem" id="NAm-3d-XRt"/>
                     <connections>
                         <outlet property="emailAddrField" destination="AeE-DX-cEz" id="oPO-xb-3Qk"/>
-                        <outlet property="errorLabel" destination="g4o-eB-udg" id="uFG-Ud-8cM"/>
                         <outlet property="firstNameField" destination="W4y-vI-mRn" id="ZeM-GO-IFA"/>
                         <outlet property="lastNameField" destination="k1H-ed-o3S" id="b8U-Up-f15"/>
                         <outlet property="password1Field" destination="A73-cv-tbZ" id="mwg-zL-rKc"/>
