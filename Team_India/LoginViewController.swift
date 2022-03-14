@@ -59,7 +59,7 @@ class LoginViewController: UIViewController {
     
     // MARK: - Funcs
     
-    
+    // Shows error messages in an AlertController
     func showErrorMessage(message : String) {
         
         // Show an AlertController
