@@ -34,7 +34,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="11" translatesAutoresizingMaskIntoConstraints="NO" id="4Ve-tl-rbz" userLabel="Log In Stack">
-                                <rect key="frame" x="40" y="420" width="334" height="124"/>
+                                <rect key="frame" x="40" y="420" width="334" height="169.5"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fNZ-Gp-eRb">
                                         <rect key="frame" x="10" y="0.0" width="314" height="34"/>
@@ -57,6 +57,17 @@
                                             <action selector="logInButtonHandler:" destination="BYZ-38-t0r" eventType="touchUpInside" id="CGP-4B-e4V"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Iec-D6-jxp">
+                                        <rect key="frame" x="87" y="135" width="160" height="34.5"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Forgot password?">
+                                            <fontDescription key="titleFontDescription" style="UICTFontTextStyleTitle3"/>
+                                            <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <action selector="logInButtonHandler:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Rp8-ve-VqI"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="fNZ-Gp-eRb" secondAttribute="trailing" constant="10" id="JJ7-0R-182"/>
@@ -76,14 +87,14 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Iec-D6-jxp">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vmc-zY-p5E">
                                         <rect key="frame" x="0.0" y="27.5" width="144" height="34.5"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title="Sign Me Up!">
                                             <fontDescription key="titleFontDescription" style="UICTFontTextStyleTitle3"/>
                                         </buttonConfiguration>
                                         <connections>
-                                            <segue destination="QHp-gQ-aKE" kind="show" identifier="Registration" id="6DQ-uD-w1Q"/>
+                                            <segue destination="QHp-gQ-aKE" kind="show" id="avz-zi-eoI"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -121,6 +132,7 @@
                     <navigationItem key="navigationItem" id="Tuh-nS-bFp"/>
                     <connections>
                         <outlet property="emailAddrField" destination="fNZ-Gp-eRb" id="WYg-oV-oM5"/>
+                        <outlet property="forgotButton" destination="Iec-D6-jxp" id="aH6-SS-0gR"/>
                         <outlet property="logInButton" destination="y7W-mc-Mr8" id="WCf-oy-d9H"/>
                         <outlet property="passwordField" destination="Ogk-sU-g8o" id="r3H-U2-bjU"/>
                     </connections>
