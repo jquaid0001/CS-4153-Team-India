@@ -15,48 +15,38 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var logInButton: UIButton!
     @IBOutlet weak var forgotButton: UIButton!
     
+    
     // MARK: - View Lifecycles
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-
     }
     
 
     // MARK: - Handlers
 
-    @IBAction func logInButtonHandler(_ sender: UIButton) {
+    @IBAction func buttonHandler(_ sender: UIButton) {
         
         switch sender {
         case forgotButton :
             showPassReset()
-            return
         case logInButton :
-            //do login stuff
-            print("log in button")
-        default :
-            return
-        }
-        
-        
-        // Get the text field data and verify they are non-empty
-        guard let email = emailAddrField.text,
-              !email.isEmpty,
-              let password = passwordField.text,
-              !password.isEmpty
-        else {
-            showErrorMessage(message: "Please complete all fields.")
-            return
-        }
-        
-        // if email is formatted improperly, don't send the data to authentication just post an error
-        if !FormValidationUtil.isEmailFormatted(emailField: email) {
-            // show error and highlight email field
-            showErrorMessage(message: "Email is not formatted properly.")
-            return
-        } else {
+            // Get the text field data and verify they are non-empty
+            guard let email = emailAddrField.text,
+                  !email.isEmpty,
+                  let password = passwordField.text,
+                  !password.isEmpty
+            else {
+                showErrorMessage(message: "Please complete all fields.")
+                return
+            }
             
-            if sender == logInButton {
+            // if email is formatted improperly, don't send the data to authentication just post an error
+            if !FormValidationUtil.isEmailFormatted(emailField: email) {
+                // show error and highlight email field
+                showErrorMessage(message: "Email is not formatted properly.")
+                return
+            } else {
                 // send email and password to authentication server and process
                 Auth.auth().signIn(withEmail: email, password: password) { [weak self] result, error in
                     
@@ -69,6 +59,8 @@ class LoginViewController: UIViewController {
                     }
                 }
             }
+        default :
+            return
         }
     }
     
@@ -126,7 +118,7 @@ class LoginViewController: UIViewController {
         
     }
     
-    // Sends the user to the hoome page upon successful registration/log in
+    // Sends the user to the home page upon successful registration/log in
     func goToHome() {
         
         // Get the Home View Controller storyboard
@@ -157,16 +149,5 @@ class LoginViewController: UIViewController {
         }
         
     }
-    
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

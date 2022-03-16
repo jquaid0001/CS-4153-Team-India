@@ -54,7 +54,7 @@
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="filled" title="LOG IN"/>
                                         <connections>
-                                            <action selector="logInButtonHandler:" destination="BYZ-38-t0r" eventType="touchUpInside" id="CGP-4B-e4V"/>
+                                            <action selector="buttonHandler:" destination="BYZ-38-t0r" eventType="touchUpInside" id="6na-2K-QcN"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Iec-D6-jxp">
@@ -65,7 +65,7 @@
                                             <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </buttonConfiguration>
                                         <connections>
-                                            <action selector="logInButtonHandler:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Rp8-ve-VqI"/>
+                                            <action selector="buttonHandler:" destination="BYZ-38-t0r" eventType="touchUpInside" id="PJp-Ru-7KH"/>
                                         </connections>
                                     </button>
                                 </subviews>
