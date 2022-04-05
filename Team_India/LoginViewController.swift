@@ -14,24 +14,19 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var logInButton: UIButton!
     @IBOutlet weak var forgotButton: UIButton!
-
-    let visibilityButton = UIButton(type: .custom)
+    
+    var visibilityButton = UIButton()
     
     // MARK: - View Lifecycles
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        visibilityButton.frame = CGRect(x: 0, y: 0, width: 50, height: passwordField.frame.height)
-        // Try to get the system image for eye slash and set the visibilityButton's image to it
-        if let visImage = UIImage(systemName: "eye.slash") {
-            visibilityButton.setImage(visImage, for: .normal)
-        }
-        visibilityButton.addTarget(self, action: #selector(self.togglePassVis), for: .touchUpInside)
+        visibilityButton = setupPasswordVisibilityButton()
         let visButtonContainer = UIView(frame: visibilityButton.frame)
         visButtonContainer.backgroundColor = .clear
         visButtonContainer.addSubview(visibilityButton)
-
+        
         // Set the VC as the delegate for the textFields
         emailAddrField.delegate = self
         passwordField.delegate = self
@@ -115,6 +110,18 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     // MARK: - Funcs
+    
+    func setupPasswordVisibilityButton() -> UIButton {
+        let visButton = UIButton(type: .custom)
+        visButton.frame = CGRect(x: 0, y: 0, width: 50, height: passwordField.frame.height)
+        // Try to get the system image for eye slash and set the visibilityButton's image to it
+        if let visImage = UIImage(systemName: "eye.slash") {
+            visButton.setImage(visImage, for: .normal)
+        }
+        visButton.addTarget(self, action: #selector(self.togglePassVis), for: .touchUpInside)
+        
+        return visButton
+    }
     
     // Keyboard flow control for textFields
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

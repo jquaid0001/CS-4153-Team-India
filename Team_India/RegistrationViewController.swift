@@ -16,7 +16,7 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var firstNameField: UITextField!
     @IBOutlet weak var lastNameField: UITextField!
     @IBOutlet weak var emailAddrField: UITextField!
-    @IBOutlet weak var password1Field: UITextField!
+    @IBOutlet weak var password1Field: PasswordTextField!
     @IBOutlet weak var password2Field: UITextField!
     
     

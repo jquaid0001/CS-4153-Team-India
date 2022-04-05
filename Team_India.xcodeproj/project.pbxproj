@@ -24,6 +24,7 @@
 		DD3918E827D24F20008CD1D9 /* GraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD3918E727D24F20008CD1D9 /* GraphViewController.swift */; };
 		DD3918EA27D24F2D008CD1D9 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD3918E927D24F2D008CD1D9 /* DetailViewController.swift */; };
 		DD3918EC27D24F5C008CD1D9 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD3918EB27D24F5C008CD1D9 /* RegistrationViewController.swift */; };
+		DD44745B27EE13AD0014F2EC /* PasswordTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD44745A27EE13AD0014F2EC /* PasswordTextField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		DD3918E727D24F20008CD1D9 /* GraphViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphViewController.swift; sourceTree = "<group>"; };
 		DD3918E927D24F2D008CD1D9 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		DD3918EB27D24F5C008CD1D9 /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
+		DD44745A27EE13AD0014F2EC /* PasswordTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 			isa = PBXGroup;
 			children = (
 				DD0B64C327D791F100E0FE9D /* FormValidationUtil.swift */,
+				DD44745A27EE13AD0014F2EC /* PasswordTextField.swift */,
 			);
 			path = "Class Files";
 			sourceTree = "<group>";
@@ -193,6 +196,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DD44745B27EE13AD0014F2EC /* PasswordTextField.swift in Sources */,
 				DD3918CD27D18B7F008CD1D9 /* AppDelegate.swift in Sources */,
 				DD3918E827D24F20008CD1D9 /* GraphViewController.swift in Sources */,
 				DD3918EC27D24F5C008CD1D9 /* RegistrationViewController.swift in Sources */,
