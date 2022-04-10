@@ -8,6 +8,9 @@
 import UIKit
 
 class HomeViewController: UIViewController {
+    
+    // keep track of all focus sessions (Date, Time)
+    var focusSessions: [(String, Float)] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
