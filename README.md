@@ -1,2 +1,2 @@
-# CS-4153-Team-India
+Team-India
 Mobile App Dev. Team Project 
