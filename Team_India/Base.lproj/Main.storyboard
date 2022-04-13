@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="e6C-0g-Cfm">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="A17-4g-kQZ">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
@@ -301,11 +301,11 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cJr-jY-3V0">
-                                <rect key="frame" x="135" y="794" width="133" height="51"/>
+                                <rect key="frame" x="128" y="794" width="147" height="51"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Resume">
+                                <buttonConfiguration key="configuration" style="plain" title="Statistics">
                                     <fontDescription key="titleFontDescription" style="UICTFontTextStyleTitle0"/>
                                 </buttonConfiguration>
                             </button>
@@ -406,6 +406,7 @@
                         <outlet property="resetButton" destination="wVB-Mn-fX6" id="647-l7-Qb1"/>
                         <outlet property="secondsInput" destination="XKz-Jl-8Vg" id="S3f-Zs-8Ew"/>
                         <outlet property="startStopButton" destination="N5P-ir-OXU" id="Ive-qr-hFa"/>
+                        <outlet property="timeElapsedOutlet" destination="TPG-Tr-1q7" id="aMM-Q0-zwl"/>
                         <outlet property="timerDisplay" destination="SpM-a6-UtD" id="I5V-3S-Xkq"/>
                     </connections>
                 </viewController>

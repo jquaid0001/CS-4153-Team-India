@@ -9,8 +9,8 @@ import UIKit
 
 class HomeViewController: UIViewController {
     
-    // keep track of all focus sessions (Date, Time)
-    var focusSessions: [(String, Float)] = []
+    // keep track of all focus sessions (Date, Time in hrs:mins:secs tuple )
+    var focusSessions: [(String, (hours:Int, minutes: Int, seconds:Int ))] = []
     
     // Outlets to communicate with the timer elements on the screen
     @IBOutlet weak var timerDisplay: UILabel!
@@ -19,6 +19,7 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var secondsInput: UITextField!
     @IBOutlet weak var startStopButton: UIButton!
     @IBOutlet weak var resetButton: UIButton!
+    @IBOutlet weak var timeElapsedOutlet: UIButton!
     
     // the timer running on the screen
     var timer:Timer = Timer()
@@ -28,6 +29,8 @@ class HomeViewController: UIViewController {
     var isTimerRunning:Bool = false
     // use this to allow user to set time of focus session
     var timeLeft:Int = 0
+    // use this to keep track of the time elapsed so far
+    var timeElapsed:Int = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,16 +42,17 @@ class HomeViewController: UIViewController {
     }
     
     // MARK: - Actions
-    
+    // When the start button is tapped, start a timer with the times provided by the user
+    // When the stop button is tapped, change the inputs to the current count so
+    // the user is able to resume from current stopping point
     @IBAction func startStopTapped(_ sender: Any) {
-        // if the timer is running at the moment
+        // if the timer is running at the moment and the user tapped on "STOP"
         if isTimerRunning {
             // stop the timer
             timer.invalidate()
             
-            // TODO: change the value of the text field whenever
-            // user pauses timer mid way
-            // TODO: update the time spent area every second
+            // change the user input values to the current countdown values
+            
             
             // reflect the state of the timer in the boolean variable
             isTimerRunning = false
@@ -57,7 +61,7 @@ class HomeViewController: UIViewController {
             // change the text of the button back to START
             startStopButton.setTitle("START", for: .normal)
         }
-        
+        // if the timer is not running and the user tapped on "START"
         else {
             // change the boolean value to reflect the running timer
             isTimerRunning = true
@@ -124,10 +128,16 @@ class HomeViewController: UIViewController {
     
     @objc func timeCounter() -> Void {
         count = count - 1
+        timeElapsed += 1
         // pass the count value to the function to break up into time displayed
         let currTime = convertToHrsMinsSecs(seconds: count)
         let currTimeString = convertTimeToString(hours: currTime.0, minutes: currTime.1, seconds: currTime.2)
         timerDisplay.text = currTimeString
+        
+        // update the time elapsed field
+        let elapsedAdd = convertToHrsMinsSecs(seconds: timeElapsed)
+        let elapsedAddString = convertTimeToString(hours: elapsedAdd.0, minutes: elapsedAdd.1, seconds: elapsedAdd.2)
+        timeElapsedOutlet.setTitle(elapsedAddString, for: .normal)
         
         // check if the timer is done
         if count == 0 {
@@ -143,14 +153,14 @@ class HomeViewController: UIViewController {
             
             // store the current date
             let currDate = DateFormatter.localizedString(from: NSDate() as Date, dateStyle: .short, timeStyle: .none)
-            // store the current inputs of the textFields (asuming this is the timer that just finished)
-            // convert into hours equivalent for simplicity in graphing
-            var totalTime = Float(hoursInput.text!)! * 3600
-            totalTime += Float(minutesInput.text!)! * 60
-            totalTime += Float(secondsInput.text!)!
-            totalTime = Float(totalTime/3600)
             
-            focusSessions.append((String(currDate), totalTime))
+            // conver the time elapsed in seconds to hours:minutes:seconds
+            let addTime = convertToHrsMinsSecs(seconds: timeElapsed)
+            
+            // add the current completed session to the focusSessions array
+            // time is stored in (hours, minutes, seconds) tuple to allow
+            // for different kinds of graphs
+            focusSessions.append((String(currDate), addTime))
         }
     }
     
@@ -166,6 +176,8 @@ class HomeViewController: UIViewController {
         answer += String(format: "0%2d", minutes)
         answer += " : "
         answer += String(format: "0%2d", seconds)
+        
+        
         
         return answer
     }
