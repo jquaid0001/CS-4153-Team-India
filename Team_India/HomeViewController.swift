@@ -31,6 +31,8 @@ class HomeViewController: UIViewController {
     var timeLeft:Int = 0
     // use this to keep track of the time elapsed so far
     var timeElapsed:Int = 0
+    // keep track of the current time on the timer
+    var currTime: (Int, Int, Int) = (0, 0, 0)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,8 +53,10 @@ class HomeViewController: UIViewController {
             // stop the timer
             timer.invalidate()
             
-            // change the user input values to the current countdown values
-            
+            // set the text fields to the current timer value equivalent
+            hoursInput.text = String(currTime.0)
+            minutesInput.text = String(currTime.1)
+            secondsInput.text = String(currTime.2)
             
             // reflect the state of the timer in the boolean variable
             isTimerRunning = false
@@ -130,7 +134,7 @@ class HomeViewController: UIViewController {
         count = count - 1
         timeElapsed += 1
         // pass the count value to the function to break up into time displayed
-        let currTime = convertToHrsMinsSecs(seconds: count)
+        currTime = convertToHrsMinsSecs(seconds: count)
         let currTimeString = convertTimeToString(hours: currTime.0, minutes: currTime.1, seconds: currTime.2)
         timerDisplay.text = currTimeString
         
