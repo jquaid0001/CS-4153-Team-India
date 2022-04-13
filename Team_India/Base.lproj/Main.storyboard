@@ -271,7 +271,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YFS-UK-YKw">
-                                <rect key="frame" x="21" y="586" width="147" height="44"/>
+                                <rect key="frame" x="21" y="586" width="171" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Button"/>
@@ -313,7 +313,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="9:37 PM" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w27-KF-ZH6">
-                                <rect key="frame" x="132" y="136" width="164" height="54"/>
+                                <rect key="frame" x="47" y="136" width="334" height="54"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="45"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -401,6 +401,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="Coq-c6-aEe"/>
                     <connections>
+                        <outlet property="clockOutlet" destination="w27-KF-ZH6" id="dWT-Wv-gFM"/>
                         <outlet property="hoursInput" destination="wk6-LZ-JoH" id="H35-G7-QdO"/>
                         <outlet property="minutesInput" destination="EN3-cU-2hb" id="lf3-Ey-1lF"/>
                         <outlet property="resetButton" destination="wVB-Mn-fX6" id="647-l7-Qb1"/>

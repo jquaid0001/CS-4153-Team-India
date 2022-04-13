@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Foundation
 
 class HomeViewController: UIViewController {
     
@@ -20,6 +21,7 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var startStopButton: UIButton!
     @IBOutlet weak var resetButton: UIButton!
     @IBOutlet weak var timeElapsedOutlet: UIButton!
+    @IBOutlet weak var clockOutlet: UILabel!
     
     // the timer running on the screen
     var timer:Timer = Timer()
@@ -33,13 +35,23 @@ class HomeViewController: UIViewController {
     var timeElapsed:Int = 0
     // keep track of the current time on the timer
     var currTime: (Int, Int, Int) = (0, 0, 0)
-
+    // keep track of the current time
+    let today = Date()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         #warning("remove back button and show Logout in top right")
         // change the color of the start button to green
         startStopButton.setTitleColor(UIColor.green, for: .normal)
+        
+        // update the time at the top of the screen
+        let hours = (Calendar.current.component(.hour, from: today))
+        let minutes = (Calendar.current.component(.minute, from: today))
+        let seconds = (Calendar.current.component(.second, from: today))
+        
+        clockOutlet.text = "\(hours):\(minutes):\(seconds)"
+        
         // Do any additional setup after loading the view.
     }
     
@@ -166,6 +178,13 @@ class HomeViewController: UIViewController {
             // for different kinds of graphs
             focusSessions.append((String(currDate), addTime))
         }
+        
+        // update the current time at the top fo the screen
+        let hours = (Calendar.current.component(.hour, from: today))
+        let minutes = (Calendar.current.component(.minute, from: today))
+        let seconds = (Calendar.current.component(.second, from: today))
+        
+        clockOutlet.text = "\(hours):\(minutes):\(seconds)"
     }
     
     func convertToHrsMinsSecs(seconds: Int) -> (Int, Int, Int) {
