@@ -202,7 +202,7 @@ class HomeViewController: UIViewController {
             focusSessions.append((String(currDate), addTime))
             
             // showing how to print out the focus sessions on the screen
-            print("TESTING: The current focus session is \(focusSessions[0].1.seconds)")
+            print("TESTING: The current focus session has been logged on day \(focusSessions[0].0.split(separator: "/")[1]) of month \(focusSessions[0].0.split(separator: "/")[0]) for for a total of \(focusSessions[0].1.hours) hours, \(focusSessions[0].1.minutes) minutes, and \(focusSessions[0].1.seconds) seconds")
         }
         
         // create an instance of today's date
