@@ -17,7 +17,7 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var lastNameField: UITextField!
     @IBOutlet weak var emailAddrField: UITextField!
     @IBOutlet weak var password1Field: PasswordTextField!
-    @IBOutlet weak var password2Field: UITextField!
+    @IBOutlet weak var password2Field: PasswordTextField!
     
     
     // MARK: - View Lifecycles
@@ -28,10 +28,18 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
         // Set the color of the back button to white for visibility
         self.navigationController?.navigationBar.tintColor = UIColor.white
         
+        // Set the VC as the TextField delegate
+        firstNameField.delegate = self
+        lastNameField.delegate = self
+        emailAddrField.delegate = self
         password1Field.delegate = self
         password2Field.delegate = self
+
         
-        // Do any additional setup after loading the view.
+        // Set the LOG IN button's background color so it's visible even when disabled
+        signUpButton.configuration?.background.backgroundColor = .systemBlue
+        // Disable the LOG IN button until fields are populated
+        signUpButton.isEnabled = false
     }
 
 
@@ -45,6 +53,45 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
     }
     */
 
+    // MARK: - Observers
+    
+    @IBAction func textFieldDidChange(_ sender: UITextField) {
+        
+        // If the password visibility is toggled on either password field, turn it off when user begins typing in any field
+        if let password = password1Field.text,
+           let password2 = password2Field.text {
+            if !password.isEmpty || !password2.isEmpty {
+                // If the password visibility is toggled, turn it off when user begins typing in any field again
+                if !password1Field.isSecureTextEntry && !password.isEmpty {
+                    password1Field.togglePassVis()
+                }
+                if !password2Field.isSecureTextEntry && !password2.isEmpty{
+                    password2Field.togglePassVis()
+                }
+            } else {
+                // No need to check if the fields are empty, just exit the DidChange just make sure log in is disabled
+                signUpButton.isEnabled = false
+                return
+            }
+        }
+        
+        // Get the fields and check if they are both not empty
+        guard let firstName = firstNameField.text,
+              !firstName.isEmpty,
+              let lastName = lastNameField.text,
+              !lastName.isEmpty,
+              let email = emailAddrField.text,
+              !email.isEmpty
+        else {
+            // If any fields becomes empty or is empty, make sure the LOG IN button is disabled
+            signUpButton.isEnabled = false
+            return
+        }
+        // If both fields contain data, enable the LOG IN button else, leave it disabled
+        signUpButton.isEnabled = true
+
+    }
+    
     // MARK: - Handlers
     
     @IBAction func signUpButtonHandler(_ sender: UIButton) {
@@ -106,6 +153,39 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
     
     
     // MARK: - Funcs
+    
+    // Keyboard flow control for textFields
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        // Transfer control to the next field in line as the user uses the "return" key
+        switch textField {
+        case firstNameField:
+            lastNameField.becomeFirstResponder()
+            return true
+        case lastNameField:
+            emailAddrField.becomeFirstResponder()
+            return true
+        case emailAddrField:
+            password1Field.becomeFirstResponder()
+            return true
+        case password1Field:
+            password2Field.becomeFirstResponder()
+            return true
+        case password2Field:
+            if signUpButton.isEnabled == true {
+                // Close the keyboard
+                password2Field.resignFirstResponder()
+                // Simulate the LOG IN button press if the done button is pressed on the keyboard
+                self.signUpButtonHandler(signUpButton)
+                return true
+            } else {
+                return false
+            }
+        default:
+            showErrorMessage(message: "Please complete the missing fields.")
+            return false
+        }
+    }
     
     // Shows error messages in an AlertController
     func showErrorMessage(message : String) {

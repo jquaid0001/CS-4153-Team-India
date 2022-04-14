@@ -11,21 +11,14 @@ import FirebaseAuth
 class LoginViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var emailAddrField: UITextField!
-    @IBOutlet weak var passwordField: UITextField!
+    @IBOutlet weak var passwordField: PasswordTextField!
     @IBOutlet weak var logInButton: UIButton!
     @IBOutlet weak var forgotButton: UIButton!
-    
-    var visibilityButton = UIButton()
     
     // MARK: - View Lifecycles
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        visibilityButton = setupPasswordVisibilityButton()
-        let visButtonContainer = UIView(frame: visibilityButton.frame)
-        visButtonContainer.backgroundColor = .clear
-        visButtonContainer.addSubview(visibilityButton)
         
         // Set the VC as the delegate for the textFields
         emailAddrField.delegate = self
@@ -33,10 +26,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         // Set up the props for the textFields keyboards
         emailAddrField.keyboardType = .emailAddress
         emailAddrField.returnKeyType = .next
-        passwordField.returnKeyType = .done
-        // Set the visibility button to show on the right of passwordField
-        passwordField.rightViewMode = .always
-        passwordField.rightView = visButtonContainer
+        passwordField.returnKeyType = .go
         
         // Set the LOG IN button's background color so it's visible even when disabled
         logInButton.configuration?.background.backgroundColor = .systemBlue
@@ -49,16 +39,22 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func textFieldDidChange(_ sender: UITextField) {
         
-        // If the password visibility is toggled, turn it off when user begins typing in the password field again
-        if sender == passwordField && !passwordField.isSecureTextEntry {
-            togglePassVis()
+        if let password = passwordField.text {
+            if !password.isEmpty {
+                // If the password visibility is toggled, turn it off when user begins typing in any field again
+                if !passwordField.isSecureTextEntry {
+                    passwordField.togglePassVis()
+                }
+            } else {
+                // No need to check if the fields are empty, just exit the DidChange just make sure log in is disabled
+                logInButton.isEnabled = false
+                return
+            }
         }
         
-        // Get the fields and check if they are both not empty
+        // Get the email field and check that is is populated before enabling the log in button
         guard let email = emailAddrField.text,
-              !email.isEmpty,
-              let passwordField = passwordField.text,
-              !passwordField.isEmpty
+              !email.isEmpty
         else {
             // If any fields becomes empty or is empty, make sure the LOG IN button is disabled
             logInButton.isEnabled = false
@@ -110,18 +106,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     // MARK: - Funcs
-    
-    func setupPasswordVisibilityButton() -> UIButton {
-        let visButton = UIButton(type: .custom)
-        visButton.frame = CGRect(x: 0, y: 0, width: 50, height: passwordField.frame.height)
-        // Try to get the system image for eye slash and set the visibilityButton's image to it
-        if let visImage = UIImage(systemName: "eye.slash") {
-            visButton.setImage(visImage, for: .normal)
-        }
-        visButton.addTarget(self, action: #selector(self.togglePassVis), for: .touchUpInside)
-        
-        return visButton
-    }
     
     // Keyboard flow control for textFields
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -226,30 +210,5 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         }
         
     }
-    
-    @IBAction func togglePassVis() {
-        passwordField.isSecureTextEntry.toggle()
-        // Set the image to the opposite of what is displayed for the visibilityButton
-        if !passwordField.isSecureTextEntry {
-            if let visImage = UIImage(systemName: "eye") {
-                visibilityButton.setImage(visImage, for: .normal)
-            }
-        } else {
-            if let existingPassText = passwordField.text {
-                passwordField.deleteBackward()
-                if let passwordTextRange = passwordField.textRange(from: passwordField.beginningOfDocument, to: passwordField.endOfDocument) {
-                passwordField.replace(passwordTextRange, withText: existingPassText)
-                }
-            }
-            
-            if let visImage = UIImage(systemName: "eye.slash") {
-                visibilityButton.setImage(visImage, for: .normal)
-            }
-            
-            if let existingSelectedRange = passwordField.selectedTextRange {
-                passwordField.selectedTextRange = nil
-                passwordField.selectedTextRange = existingSelectedRange
-            }
-        }
-    }
+
 }
