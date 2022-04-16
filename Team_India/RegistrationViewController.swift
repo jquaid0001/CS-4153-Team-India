@@ -133,10 +133,11 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
                 } else {
                     // User creation successfull, save the first and last name in the Firestore DB and then unwind back to Log In View may want to retry on failure.
                     let fireDB = Firestore.firestore()
-                    fireDB.collection("users").addDocument(data: [
+                    fireDB.collection("users").document(result!.user.uid).setData([
+                        "uid": result!.user.uid,
                         "firstname": firstName,
                         "lastname": lastName,
-                        "uid": result!.user.uid]) { dbError in
+                        "email": email]) { dbError in
                             if dbError != nil {
                                 self.showErrorMessage(message: "Failed to store DB info, please contact support.")
                                 print("Saving user to DB failed for reason: \(dbError?.localizedDescription ?? "Unknown DB save error, plese contact support.")")
