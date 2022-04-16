@@ -22,11 +22,13 @@ class DetailViewController: UIViewController {
         // Get the data from Firestore
         getFirestoreData()
         
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
         // Check for data
         for session in focusSessions {
             print(session)
         }
-        
     }
     
     
@@ -50,8 +52,12 @@ class DetailViewController: UIViewController {
                 if error == nil {
                     // unwrap the dbCollectioon returned from Firestore and append each session to the focusSession array
                     if let dbCollection = dbCollection {
-                        for session in dbCollection.documents {
-                            self.focusSessions.append((date: session.get("date") as! String, time: (hours: session.get("timeHours") as! Int, minutes: session.get("timeMinutes") as! Int, seconds: session.get("timeSeconds") as! Int)))
+                        // Put this in the main queue since it's UI related
+                        DispatchQueue.main.async {
+                            // Populate the array from the document collection
+                            for session in dbCollection.documents {
+                                self.focusSessions.append((date: session.get("date") as! String, time: (hours: session.get("timeHours") as! Int, minutes: session.get("timeMinutes") as! Int, seconds: session.get("timeSeconds") as! Int)))
+                            }
                         }
                     }
                 } else {
