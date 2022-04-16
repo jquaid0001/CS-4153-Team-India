@@ -7,6 +7,7 @@
 
 import UIKit
 import Foundation
+import Firebase
 
 class HomeViewController: UIViewController {
     
@@ -92,7 +93,7 @@ class HomeViewController: UIViewController {
             
             // store the current date
             let currDate = DateFormatter.localizedString(from: NSDate() as Date, dateStyle: .short, timeStyle: .none)
-            // conver the time elapsed in seconds to hours:minutes:seconds
+            // convert the time elapsed in seconds to hours:minutes:seconds
             let addTime = convertToHrsMinsSecs(seconds: timeElapsed)
             
             // determine the last index in the array
@@ -241,7 +242,7 @@ class HomeViewController: UIViewController {
             // store the current date
             let currDate = DateFormatter.localizedString(from: NSDate() as Date, dateStyle: .short, timeStyle: .none)
             
-            // conver the time elapsed in seconds to hours:minutes:seconds
+            // convert the time elapsed in seconds to hours:minutes:seconds
             let addTime = convertToHrsMinsSecs(seconds: timeElapsed)
             
             // determine the last index in the array
@@ -260,6 +261,13 @@ class HomeViewController: UIViewController {
                 focusSessions.append((currDate, addTime))
                 nextIndex += 1
             }
+            
+            #warning("Remove this after testing")
+            for focusSession in focusSessions {
+                print(focusSession)
+            }
+            // Write the focusSession to the user's Firebase Firestore DB
+            writeSessionToFirebase(session: nextIndex)
             
             // showing how to print out the focus sessions on the screen
             print("TESTING: The current focus session has been logged on day \(focusSessions[nextIndex].date.split(separator: "/")[1]) of month \(focusSessions[nextIndex].date.split(separator: "/")[nextIndex]) for for a total of \(focusSessions[nextIndex].time.hours) hours, \(focusSessions[nextIndex].time.minutes) minutes, and \(focusSessions[nextIndex].time.seconds) seconds")
@@ -293,6 +301,42 @@ class HomeViewController: UIViewController {
         answer += String(format: "0%2d", seconds)
         // return the final string to display for the user
         return answer
+    }
+    
+    // The function that writes the passed index of focusSessions (the most recently written focusSession
+    //     to the user's Firestore DB
+    private func writeSessionToFirebase(session: Int) {
+        // Get a Firestore DB reference to work with
+        let firestoreDB = Firestore.firestore()
+        // Get the currently signed in user
+        let user = Auth.auth().currentUser
+        
+        // make sure the user is signed in before trying to access the user information and store to the DB
+        if let user = user {
+            // Write the focusSession to Firestore
+            firestoreDB.collection("users").document(user.uid).collection("focusSessions").addDocument(data: [
+                "date": focusSessions[session].date,
+                "timeHours": focusSessions[session].time.hours,
+                "timeMinutes": focusSessions[session].time.minutes,
+                "timeSeconds": focusSessions[session].time.seconds]) { dbError in
+                    if dbError != nil {
+                        self.showErrorMessage(message: "Failed to store focusSession to database, please contact support.")
+                        print("Saving focusSession to DB failed for reason: \(dbError?.localizedDescription ?? "Unknown DB save error, plese contact support.")")
+                    }
+                }
+        }
+    }
+
+    // Shows error messages in an AlertController
+    func showErrorMessage(message : String) {
+        // Show an AlertController
+        let alertController = UIAlertController(title: "Error Registering User",
+                                          message: message,
+                                                preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Ok", style: .default)
+        // Add the action to the alertController
+        alertController.addAction(okAction)
+        self.present(alertController, animated: true)
     }
     
     

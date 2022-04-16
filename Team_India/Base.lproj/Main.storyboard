@@ -314,6 +314,9 @@
                                 <buttonConfiguration key="configuration" style="plain" title="Statistics">
                                     <fontDescription key="titleFontDescription" style="UICTFontTextStyleTitle0"/>
                                 </buttonConfiguration>
+                                <connections>
+                                    <segue destination="vw0-U7-r2r" kind="showDetail" id="YZ7-AQ-LGg"/>
+                                </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="What are we working on today?" textAlignment="center" minimumFontSize="24" translatesAutoresizingMaskIntoConstraints="NO" id="6y9-ab-qvM">
                                 <rect key="frame" x="47" y="508" width="334" height="36"/>
@@ -430,28 +433,12 @@
             </objects>
             <point key="canvasLocation" x="1760.8695652173915" y="419.86607142857139"/>
         </scene>
-        <!--Graph View Controller-->
-        <scene sceneID="EcV-nl-Fgf">
-            <objects>
-                <viewController title="Graph" id="3gh-Lq-vdl" userLabel="Graph View Controller" customClass="GraphViewController" customModule="Team_India" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="y1S-NB-3eV">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="42N-uX-T2H"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="4ft-Rb-it8"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="UBA-lq-JRa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2645" y="70"/>
-        </scene>
         <!--Detail View Controller-->
         <scene sceneID="bgT-2t-uxe">
             <objects>
                 <viewController title="Detail" id="vw0-U7-r2r" userLabel="Detail View Controller" customClass="DetailViewController" customModule="Team_India" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Dw7-Lw-6YX">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w4f-Ni-SXM">
@@ -522,10 +509,11 @@
                         <viewLayoutGuide key="safeArea" id="ra9-6z-2UJ"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
+                    <navigationItem key="navigationItem" id="9OP-cP-9Y1"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Za6-Xz-RhC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3497.1014492753625" y="69.642857142857139"/>
+            <point key="canvasLocation" x="2632" y="420"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="xKt-Hp-Qpx">
@@ -579,7 +567,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AEl-Hp-O8J" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2636" y="718"/>
+            <point key="canvasLocation" x="3497" y="717"/>
         </scene>
         <!--Bar Graph Nav Controller-->
         <scene sceneID="EQZ-Mh-kuH">
