@@ -11,7 +11,10 @@ import Foundation
 class HomeViewController: UIViewController {
     
     // keep track of all focus sessions (Date, Time in hrs:mins:secs tuple )
-    var focusSessions: [(String, (hours:Int, minutes: Int, seconds:Int ))] = []
+    // adding one dummy value to test addition of new elements to the array
+    var focusSessions: [(date:String, time:(hours:Int, minutes: Int, seconds:Int ))] = [
+        (date: "4/14/2022" , time:(hours:1, minutes: 30, seconds: 0))
+    ]
     
     // Outlets to communicate with the timer elements on the screen
     @IBOutlet weak var timerDisplay: UILabel!
@@ -35,8 +38,8 @@ class HomeViewController: UIViewController {
     var timeElapsed:Int = 0
     // keep track of the current time on the timer
     var currTime: (Int, Int, Int) = (0, 0, 0)
-    // keep track of the current time
-    let today = Date()
+    // used to store the current date
+    let date = Date()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,12 +48,15 @@ class HomeViewController: UIViewController {
         // change the color of the start button to green
         startStopButton.setTitleColor(UIColor.green, for: .normal)
         
-        // update the time at the top of the screen
-        let hours = (Calendar.current.component(.hour, from: today))
-        let minutes = (Calendar.current.component(.minute, from: today))
-        let seconds = (Calendar.current.component(.second, from: today))
-        
-        clockOutlet.text = "\(hours):\(minutes):\(seconds)"
+        // Store the current date in the date variable for formatting below
+        let currDate = NSDate()
+        let dateFormat = DateFormatter()
+        // ensure the time showing is 12 hour time and not 24 hour time
+        dateFormat.dateFormat = "hh:mm a"
+        // store the corresponding string symbolizing the time in dateString
+        let dateString = dateFormat.string(from: date as Date)
+        // assing the dateString to the screen outlet element showign the time to the user
+        clockOutlet.text = dateString
         
         // Do any additional setup after loading the view.
     }
@@ -70,12 +76,44 @@ class HomeViewController: UIViewController {
             minutesInput.text = String(currTime.1)
             secondsInput.text = String(currTime.2)
             
+            // Allow the user to change the values in the text fields once more
+            hoursInput.isUserInteractionEnabled = true
+            minutesInput.isUserInteractionEnabled = true
+            secondsInput.isUserInteractionEnabled = true
+            
             // reflect the state of the timer in the boolean variable
             isTimerRunning = false
             // change the color back to green
             startStopButton.setTitleColor(UIColor.green, for: .normal)
             // change the text of the button back to START
             startStopButton.setTitle("START", for: .normal)
+            
+            // Add the current time that has elapsed to the focusSessions array
+            
+            // store the current date
+            let currDate = DateFormatter.localizedString(from: NSDate() as Date, dateStyle: .short, timeStyle: .none)
+            // conver the time elapsed in seconds to hours:minutes:seconds
+            let addTime = convertToHrsMinsSecs(seconds: timeElapsed)
+            
+            // determine the last index in the array
+            var nextIndex = focusSessions.count - 1
+            // SET the current completed session to the focusSessions array at most recent date if still
+            // the same as today's date, otherwise, create a new entry
+            if focusSessions[nextIndex].date == currDate {
+                // add the hours elapsed
+                focusSessions[nextIndex].time.hours = addTime.0
+                // add the minutes elapsed
+                focusSessions[nextIndex].time.minutes = addTime.1
+                // add the seconds elapsed
+                focusSessions[nextIndex].time.seconds = addTime.2
+            } else {
+                // adding the current session to the end of the array
+                focusSessions.append((currDate, addTime))
+                nextIndex += 1
+            }
+            
+            // print out statement to confirm time in between completion of focus session has been added
+            print("TESTING: Time in between focus sessions has been added to  \(focusSessions[nextIndex].date), the new time stored is  \(focusSessions[nextIndex].time.hours) hours, \(focusSessions[nextIndex].time.minutes) minutes, and \(focusSessions[nextIndex].time.seconds) seconds")
         }
         // if the timer is not running and the user tapped on "START"
         else {
@@ -85,34 +123,41 @@ class HomeViewController: UIViewController {
             startStopButton.setTitle("STOP", for: .normal)
             // change the color of the button to red while timer is running
             startStopButton.setTitleColor(UIColor.red, for: .normal)
+            // Keep the user from being able to change the text field balues while the timer is running
+            hoursInput.isUserInteractionEnabled = false
+            minutesInput.isUserInteractionEnabled = false
+            secondsInput.isUserInteractionEnabled = false
             
             // reset the contents of the count variable whenever the start
             // button is clicked
             count = 0
             
-            // ensure all user input fields have a default value to them
+            // Ensure all user input fields have a default value to them
             var hours = hoursInput.text
             var minutes = minutesInput.text
             var seconds = secondsInput.text
-            
+            // check for empty text field
             if hours == "" {
                 hours = "0"
                 hoursInput.text = "0"
             }
+            // set a default value of 30 if this text field is empty
             if minutes == "" {
                 minutes = "30"
                 minutesInput.text = "0"
             }
+            // check for empty text field
             if seconds == "" {
                 seconds = ""
                 secondsInput.text = "0"
             }
             
+            // conver the user inputs to their corresopnding time values
             count += Int(hours!)! * 3600
             count += Int(minutes!)! * 60
             count += Int(seconds!)!
             
-            // update the clock at the top of the screen
+            // update the timer
             timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timeCounter), userInfo: nil, repeats: true)
         }
     }
@@ -134,6 +179,11 @@ class HomeViewController: UIViewController {
             self.startStopButton.setTitleColor(UIColor.green, for: .normal)
             // change the text of the button back to START
             self.startStopButton.setTitle("START", for: .normal)
+            
+            // allow the user to change the values of the text fields once more
+            self.hoursInput.isUserInteractionEnabled = true
+            self.minutesInput.isUserInteractionEnabled = true
+            self.secondsInput.isUserInteractionEnabled = true
         }))
         
         self.present(alert, animated: true, completion: nil)
@@ -151,17 +201,9 @@ class HomeViewController: UIViewController {
         
         // check if input can be converted to an int
         // conver the integer to the huor equivalent in seconds
-        if let hrs = Int(hours) {
-            count += hrs * 3600
-        }
-        
-        if let mins = Int(minutes) {
-            count += mins * 60
-        }
-        
-        if let secs = Int(seconds) {
-            count += secs
-        }
+        if let hrs = Int(hours) { count += hrs * 3600 }
+        if let mins = Int(minutes) { count += mins * 60 }
+        if let secs = Int(seconds) { count += secs }
     }
     
     // updates the timer and the time elepased fields every seconds
@@ -179,9 +221,15 @@ class HomeViewController: UIViewController {
         timeElapsedOutlet.setTitle(elapsedAddString, for: .normal)
         
         // check if the timer is done
-        if count == 0 {
+        if count <= 0 {
             // stop the timer when it gets to zero
             timer.invalidate()
+            // change the button back to start
+            self.startStopButton.setTitle("STOP", for: .normal)
+            // allow the user to change the values of the text fields since the timer is done
+            hoursInput.isUserInteractionEnabled = true
+            minutesInput.isUserInteractionEnabled = true
+            secondsInput.isUserInteractionEnabled = true
             
             // send an alert to the user
             let alert = UIAlertController(title: "Focus session finished", message: "Time to take a break!", preferredStyle: .alert)
@@ -196,24 +244,36 @@ class HomeViewController: UIViewController {
             // conver the time elapsed in seconds to hours:minutes:seconds
             let addTime = convertToHrsMinsSecs(seconds: timeElapsed)
             
-            // add the current completed session to the focusSessions array
-            // time is stored in (hours, minutes, seconds) tuple to allow
-            // for different kinds of graphs
-            focusSessions.append((String(currDate), addTime))
+            // determine the last index in the array
+            var nextIndex = focusSessions.count - 1
+            // add the current completed session to the focusSessions array at most recent date if still
+            // the same as today's date, otherwise, create a new entry
+            if focusSessions[nextIndex].date == currDate {
+                // add the hours elapsed
+                focusSessions[nextIndex].time.hours += addTime.0
+                // add the minutes elapsed
+                focusSessions[nextIndex].time.minutes += addTime.1
+                // add the seconds elapsed
+                focusSessions[nextIndex].time.seconds += addTime.2
+            } else {
+                // adding the current session to the end of the array
+                focusSessions.append((currDate, addTime))
+                nextIndex += 1
+            }
             
             // showing how to print out the focus sessions on the screen
-            print("TESTING: The current focus session has been logged on day \(focusSessions[0].0.split(separator: "/")[1]) of month \(focusSessions[0].0.split(separator: "/")[0]) for for a total of \(focusSessions[0].1.hours) hours, \(focusSessions[0].1.minutes) minutes, and \(focusSessions[0].1.seconds) seconds")
+            print("TESTING: The current focus session has been logged on day \(focusSessions[nextIndex].date.split(separator: "/")[1]) of month \(focusSessions[nextIndex].date.split(separator: "/")[nextIndex]) for for a total of \(focusSessions[nextIndex].time.hours) hours, \(focusSessions[nextIndex].time.minutes) minutes, and \(focusSessions[nextIndex].time.seconds) seconds")
         }
         
-        // create an instance of today's date
-        let today = Date()
-        
-        // update the current time at the top fo the screen
-        let hours = (Calendar.current.component(.hour, from: today))
-        let minutes = (Calendar.current.component(.minute, from: today))
-        let seconds = (Calendar.current.component(.second, from: today))
-        
-        clockOutlet.text = "\(hours):\(minutes)"
+        // Store the current date in the date variable for formatting below
+        _ = NSDate()
+        let dateFormat = DateFormatter()
+        // ensure the time showing is 12 hour time and not 24 hour time
+        dateFormat.dateFormat = "hh:mm a"
+        // store the corresponding string symbolizing the time in dateString
+        let dateString = dateFormat.string(from: date as Date)
+        // assing the dateString to the screen outlet element showign the time to the user
+        clockOutlet.text = dateString
     }
     
     // convert total secons into hours, minutes, and seconds tuple
