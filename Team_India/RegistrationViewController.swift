@@ -209,9 +209,12 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
             return
         }
         
+        // Set up the navigation bar for the HomeViewController to
+        //     show "logout"
+        let backBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: nil, action: nil)
+        navigationItem.backBarButtonItem = backBarButtonItem
         // Change the root VC to the homeVC
-        view.window?.rootViewController = homeVC
-        view.window?.makeKeyAndVisible()
+        self.navigationController?.pushViewController(homeVC, animated: true)
     }
 }
 

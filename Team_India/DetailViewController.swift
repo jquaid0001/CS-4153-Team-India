@@ -11,13 +11,15 @@ import Firebase
 class DetailViewController: UIViewController {
 
     // Array of focusSession tuples for graph display
-    private var focusSessions: [(date:String, time:(hours:Int, minutes: Int, seconds:Int ))] = []
+    private var focusSessions: [(date: String, workingOn: String, time:(hours: Int, minutes: Int, seconds: Int ))] = []
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        // Set the color of the logout button to white for visibility
+        self.navigationController?.navigationBar.tintColor = UIColor.black
         
         // Get the data from Firestore
         getFirestoreData()
@@ -56,13 +58,13 @@ class DetailViewController: UIViewController {
                         DispatchQueue.main.async {
                             // Populate the array from the document collection
                             for session in dbCollection.documents {
-                                self.focusSessions.append((date: session.get("date") as! String, time: (hours: session.get("timeHours") as! Int, minutes: session.get("timeMinutes") as! Int, seconds: session.get("timeSeconds") as! Int)))
+                                self.focusSessions.append((date: session.get("date") as! String, workingOn: session.get("workingOn") as! String, time: (hours: session.get("timeHours") as! Int, minutes: session.get("timeMinutes") as! Int, seconds: session.get("timeSeconds") as! Int)))
                             }
                         }
                     }
                 } else {
                     // Deal with the error
-                    print("Error retrieving focusSession: \(error)")
+                    print("Error retrieving focusSession: \(String(describing: error))")
                 }
             }
         } else {

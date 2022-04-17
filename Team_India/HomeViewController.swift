@@ -11,13 +11,11 @@ import Firebase
 
 class HomeViewController: UIViewController {
     
-    // keep track of all focus sessions (Date, Time in hrs:mins:secs tuple )
-    // adding one dummy value to test addition of new elements to the array
-    var focusSessions: [(date:String, time:(hours:Int, minutes: Int, seconds:Int ))] = [
-        (date: "4/14/2022" , time:(hours:1, minutes: 30, seconds: 0))
-    ]
+    // keep track of all focus sessions (Date, What is being done, and Time in hrs:mins:secs tuple )
+    var focusSessions: [(date:String, workingOn: String, time:(hours:Int, minutes: Int, seconds:Int ))] = []
     
     // Outlets to communicate with the timer elements on the screen
+    //    and the text field
     @IBOutlet weak var timerDisplay: UILabel!
     @IBOutlet weak var hoursInput: UITextField!
     @IBOutlet weak var minutesInput: UITextField!
@@ -26,6 +24,7 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var resetButton: UIButton!
     @IBOutlet weak var timeElapsedOutlet: UIButton!
     @IBOutlet weak var clockOutlet: UILabel!
+    @IBOutlet weak var workingOnField: UITextField!
     
     // the timer running on the screen
     var timer:Timer = Timer()
@@ -42,10 +41,11 @@ class HomeViewController: UIViewController {
     // used to store the current date
     let date = Date()
     
+    // MARK: - View Lifecycles
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        #warning("remove back button and show Logout in top right")
+        
         // change the color of the start button to green
         startStopButton.setTitleColor(UIColor.green, for: .normal)
         
@@ -53,16 +53,43 @@ class HomeViewController: UIViewController {
         let currDate = NSDate()
         let dateFormat = DateFormatter()
         // ensure the time showing is 12 hour time and not 24 hour time
-        dateFormat.dateFormat = "hh:mm a"
+        dateFormat.dateFormat = "h:mm a"
         // store the corresponding string symbolizing the time in dateString
         let dateString = dateFormat.string(from: date as Date)
-        // assing the dateString to the screen outlet element showign the time to the user
+        // assing the dateString to the screen outlet element showing the time to the user
         clockOutlet.text = dateString
         
         // Do any additional setup after loading the view.
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        // Set the color of the logout button to white for visibility
+        self.navigationController?.navigationBar.tintColor = UIColor.white
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        // If we are logging out, we want to go back to the Login screen and not the registration screen. Pop to the root VC.
+        if isMovingFromParent {
+            self.navigationController?.popToRootViewController(animated: false)
+        }
+    }
+    
+    override func willMove(toParent parent: UIViewController?) {
+        super.willMove(toParent: parent)
+        
+        // If we are going back to the parent view ie the Log In screen, we need to log out
+        if parent == nil {
+            do {
+                try Auth.auth().signOut()
+                print("User signed out")
+            } catch let error {
+                print("User unable to sign out due to: \(error)")
+            }
+        }
+    }
+    
     // MARK: - Actions
+    
     // When the start button is tapped, start a timer with the times provided by the user
     // When the stop button is tapped, change the inputs to the current count so
     // the user is able to resume from current stopping point
@@ -95,12 +122,14 @@ class HomeViewController: UIViewController {
             let currDate = DateFormatter.localizedString(from: NSDate() as Date, dateStyle: .short, timeStyle: .none)
             // convert the time elapsed in seconds to hours:minutes:seconds
             let addTime = convertToHrsMinsSecs(seconds: timeElapsed)
+            // Get the text from workingOnField. If nil, just put an empty string
+            let workingOn = workingOnField.text ?? ""
             
             // determine the last index in the array
             var nextIndex = focusSessions.count - 1
             // SET the current completed session to the focusSessions array at most recent date if still
             // the same as today's date, otherwise, create a new entry
-            if focusSessions[nextIndex].date == currDate {
+            if nextIndex > -1 && focusSessions[nextIndex].date == currDate {
                 // add the hours elapsed
                 focusSessions[nextIndex].time.hours = addTime.0
                 // add the minutes elapsed
@@ -109,12 +138,12 @@ class HomeViewController: UIViewController {
                 focusSessions[nextIndex].time.seconds = addTime.2
             } else {
                 // adding the current session to the end of the array
-                focusSessions.append((currDate, addTime))
+                focusSessions.append((currDate, workingOn, addTime))
                 nextIndex += 1
             }
             
             // print out statement to confirm time in between completion of focus session has been added
-            print("TESTING: Time in between focus sessions has been added to  \(focusSessions[nextIndex].date), the new time stored is  \(focusSessions[nextIndex].time.hours) hours, \(focusSessions[nextIndex].time.minutes) minutes, and \(focusSessions[nextIndex].time.seconds) seconds")
+            print("TESTING: Time in between focus sessions has been added to  \(focusSessions[nextIndex].date), for workingOn  \(focusSessions[nextIndex].workingOn),the new time stored is, \(focusSessions[nextIndex].time.hours) hours, \(focusSessions[nextIndex].time.minutes) minutes, and \(focusSessions[nextIndex].time.seconds) seconds")
         }
         // if the timer is not running and the user tapped on "START"
         else {
@@ -241,6 +270,8 @@ class HomeViewController: UIViewController {
             
             // store the current date
             let currDate = DateFormatter.localizedString(from: NSDate() as Date, dateStyle: .short, timeStyle: .none)
+            // Get the text from workingOnField. If nil, just put an empty string
+            let workingOn = workingOnField.text ?? ""
             
             // convert the time elapsed in seconds to hours:minutes:seconds
             let addTime = convertToHrsMinsSecs(seconds: timeElapsed)
@@ -249,7 +280,7 @@ class HomeViewController: UIViewController {
             var nextIndex = focusSessions.count - 1
             // add the current completed session to the focusSessions array at most recent date if still
             // the same as today's date, otherwise, create a new entry
-            if focusSessions[nextIndex].date == currDate {
+            if nextIndex > -1 && focusSessions[nextIndex].date == currDate {
                 // add the hours elapsed
                 focusSessions[nextIndex].time.hours += addTime.0
                 // add the minutes elapsed
@@ -258,7 +289,7 @@ class HomeViewController: UIViewController {
                 focusSessions[nextIndex].time.seconds += addTime.2
             } else {
                 // adding the current session to the end of the array
-                focusSessions.append((currDate, addTime))
+                focusSessions.append((currDate, workingOn, addTime))
                 nextIndex += 1
             }
             
@@ -316,6 +347,7 @@ class HomeViewController: UIViewController {
             // Write the focusSession to Firestore
             firestoreDB.collection("users").document(user.uid).collection("focusSessions").addDocument(data: [
                 "date": focusSessions[session].date,
+                "workingOn": focusSessions[session].workingOn,
                 "timeHours": focusSessions[session].time.hours,
                 "timeMinutes": focusSessions[session].time.minutes,
                 "timeSeconds": focusSessions[session].time.seconds]) { dbError in
@@ -340,14 +372,17 @@ class HomeViewController: UIViewController {
     }
     
     
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
+        
+        // Set up the navigation bar for the HomeViewController to
+        //     show "logout" and give it the logout action
+        let backBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: nil, action: nil)
+        navigationItem.backBarButtonItem = backBarButtonItem
     }
-    */
 
 }

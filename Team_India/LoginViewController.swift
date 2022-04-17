@@ -23,6 +23,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         // Set the VC as the delegate for the textFields
         emailAddrField.delegate = self
         passwordField.delegate = self
+        
         // Set up the props for the textFields keyboards
         emailAddrField.keyboardType = .emailAddress
         emailAddrField.returnKeyType = .next
@@ -32,6 +33,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         logInButton.configuration?.background.backgroundColor = .systemBlue
         // Disable the LOG IN button until fields are populated
         logInButton.isEnabled = false
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        // Clear the email and password fields
+        emailAddrField.text = ""
+        passwordField.text = ""
     }
     
 
@@ -189,9 +196,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             return
         }
         
+        // Set up the navigation bar for the HomeViewController to
+        //     show "logout" and give it the logout action
+        let backBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: nil, action: nil)
+        navigationItem.backBarButtonItem = backBarButtonItem
         // Change the root VC to the homeVC
-        view.window?.rootViewController = homeVC
-        view.window?.makeKeyAndVisible()
+        self.navigationController?.pushViewController(homeVC, animated: true)
     }
         
        
@@ -210,5 +220,4 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         }
         
     }
-
 }
