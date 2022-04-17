@@ -292,11 +292,7 @@ class HomeViewController: UIViewController {
                 focusSessions.append((currDate, workingOn, addTime))
                 nextIndex += 1
             }
-            
-            #warning("Remove this after testing")
-            for focusSession in focusSessions {
-                print(focusSession)
-            }
+
             // Write the focusSession to the user's Firebase Firestore DB
             writeSessionToFirebase(session: nextIndex)
             
