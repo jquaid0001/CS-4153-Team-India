@@ -238,24 +238,33 @@ class HomeViewController: UIViewController {
     
     // updates the timer and the time elepased fields every seconds
     @objc func timeCounter() -> Void {
-        count = count - 1
-        timeElapsed += 1
-        // pass the count value to the function to break up into time displayed
-        currTime = convertToHrsMinsSecs(seconds: count)
-        let currTimeString = convertTimeToString(hours: currTime.0, minutes: currTime.1, seconds: currTime.2)
-        timerDisplay.text = currTimeString
         
-        // update the time elapsed field
-        let elapsedAdd = convertToHrsMinsSecs(seconds: timeElapsed)
-        let elapsedAddString = convertTimeToString(hours: elapsedAdd.0, minutes: elapsedAdd.1, seconds: elapsedAdd.2)
-        timeElapsedOutlet.setTitle(elapsedAddString, for: .normal)
+        // keep the timer from going into negative numbers
+        if count - 1 >= 0 {
+            count = count - 1
+            timeElapsed += 1
+            
+            
+            // pass the count value to the function to break up into time displayed
+            currTime = convertToHrsMinsSecs(seconds: count)
+            let currTimeString = convertTimeToString(hours: currTime.0, minutes: currTime.1, seconds: currTime.2)
+            timerDisplay.text = currTimeString
+            
+            // update the time elapsed field
+            let elapsedAdd = convertToHrsMinsSecs(seconds: timeElapsed)
+            let elapsedAddString = convertTimeToString(hours: elapsedAdd.0, minutes: elapsedAdd.1, seconds: elapsedAdd.2)
+            timeElapsedOutlet.setTitle(elapsedAddString, for: .normal)
+        }
         
         // check if the timer is done
-        if count <= 0 {
+        if count == 0 {
             // stop the timer when it gets to zero
             timer.invalidate()
             // change the button back to start
-            self.startStopButton.setTitle("STOP", for: .normal)
+            self.startStopButton.setTitle("START", for: .normal)
+            startStopButton.setTitleColor(UIColor.green, for: .normal)
+            // reflect the state of the timer in the boolean variable
+            isTimerRunning = false
             // allow the user to change the values of the text fields since the timer is done
             hoursInput.isUserInteractionEnabled = true
             minutesInput.isUserInteractionEnabled = true
