@@ -192,13 +192,13 @@ class HomeViewController: UIViewController {
     
     // Resets the current timer back to 0 when the reset button is tapped
     @IBAction func resetTapped(_ sender: Any) {
-        let alert = UIAlertController(title: "Reset Timer?", message: "Are you sure you want to reset the timer?", preferredStyle: .alert)
+        let alert = UIAlertController(title: "End Session?", message: "Are you sure you want to end the session?", preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (_) in
             // do nothing
         }))
         
-        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (_) in
+        alert.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { (_) in
             self.count = 0
             self.timer.invalidate()
             // set the current text in the label to all zeroes
@@ -253,7 +253,7 @@ class HomeViewController: UIViewController {
             // stop the timer when it gets to zero
             timer.invalidate()
             // change the button back to start
-            self.startStopButton.setTitle("STOP", for: .normal)
+            self.startStopButton.setTitle("START", for: .normal)
             // allow the user to change the values of the text fields since the timer is done
             hoursInput.isUserInteractionEnabled = true
             minutesInput.isUserInteractionEnabled = true
@@ -293,6 +293,17 @@ class HomeViewController: UIViewController {
 
             // Write the focusSession to the user's Firebase Firestore DB
             writeSessionToFirebase(session: nextIndex)
+            
+            // Make sure count shows as 0
+            self.count = 0
+            // set the current text in the label to all zeroes
+            
+            // Reset the timer to all zeroes
+            self.timerDisplay.text = self.convertTimeToString(hours: 0, minutes: 0, seconds: 0)
+            // change the color back to green
+            self.startStopButton.setTitleColor(UIColor.green, for: .normal)
+            // change the text of the button back to START
+            self.startStopButton.setTitle("START", for: .normal)
             
             // showing how to print out the focus sessions on the screen
             print("TESTING: The current focus session has been logged on day \(focusSessions[nextIndex].date.split(separator: "/")[1]) of month \(focusSessions[nextIndex].date.split(separator: "/")[nextIndex]) for for a total of \(focusSessions[nextIndex].time.hours) hours, \(focusSessions[nextIndex].time.minutes) minutes, and \(focusSessions[nextIndex].time.seconds) seconds")
