@@ -40,6 +40,8 @@ class HomeViewController: UIViewController {
     var currTime: (Int, Int, Int) = (0, 0, 0)
     // used to store the current date
     let date = Date()
+    // Store the user's time input for session end to maintain the user's time input (set to default 1.5hrs initially)
+    var userTimes: (String, String, String) = ("1", "30", "0")
     
     // MARK: - View Lifecycles
     
@@ -92,7 +94,7 @@ class HomeViewController: UIViewController {
     // When the stop button is tapped, change the inputs to the current count so
     // the user is able to resume from current stopping point
     @IBAction func startStopTapped(_ sender: Any) {
-        // if the timer is running at the moment and the user tapped on "STOP"
+        // if the timer is running at the moment and the user tapped on "PAUSE"
         if isTimerRunning {
             // stop the timer
             timer.invalidate()
@@ -147,6 +149,14 @@ class HomeViewController: UIViewController {
         else {
             // change the boolean value to reflect the running timer
             isTimerRunning = true
+
+            // If we are starting a timer, save the values of the time input labels for end of session.
+            //  We know these are non-nil, there is no way to get here with nil labels so force unwrapping is acceptable
+            if startStopButton.titleLabel?.text == "START" {
+                // Set the userTimeInput to what is input
+                userTimes = (hoursInput.text!, minutesInput.text!, secondsInput.text!)
+            }
+            
             // change the text of the button
             startStopButton.setTitle("PAUSE", for: .normal)
             // change the color of the button to red while timer is running
@@ -159,31 +169,16 @@ class HomeViewController: UIViewController {
             // reset the contents of the count variable whenever the start
             // button is clicked
             count = 0
+
             
-            // Ensure all user input fields have a default value to them
-            var hours = hoursInput.text
-            var minutes = minutesInput.text
-            var seconds = secondsInput.text
-            // check for empty text field
-            if hours == "" {
-                hours = "0"
-                hoursInput.text = "0"
+            if let hours = hoursInput.text,
+               let minutes = minutesInput.text,
+               let seconds = secondsInput.text {
+                // convert the user inputs to their corresopnding time values
+                count += (Int(hours) ?? 1) * 3600
+                count += (Int(minutes) ?? 30) * 60
+                count += Int(seconds) ?? 0
             }
-            // set a default value of 30 if this text field is empty
-            if minutes == "" {
-                minutes = "30"
-                minutesInput.text = "0"
-            }
-            // check for empty text field
-            if seconds == "" {
-                seconds = ""
-                secondsInput.text = "0"
-            }
-            
-            // conver the user inputs to their corresopnding time values
-            count += Int(hours!)! * 3600
-            count += Int(minutes!)! * 60
-            count += Int(seconds!)!
             
             // update the timer
             timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timeCounter), userInfo: nil, repeats: true)
@@ -198,15 +193,25 @@ class HomeViewController: UIViewController {
             // do nothing
         }))
         
-        alert.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { (_) in
+        alert.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { [self] (_) in
+            // Reset the count
             self.count = 0
+            // Invalidate the timer
             self.timer.invalidate()
+            // Set the isTimerRunning to false
+            isTimerRunning = false
+            
             // set the current text in the label to all zeroes
             self.timerDisplay.text = self.convertTimeToString(hours: 0, minutes: 0, seconds: 0)
             // change the color back to green
             self.startStopButton.setTitleColor(UIColor.green, for: .normal)
             // change the text of the button back to START
             self.startStopButton.setTitle("START", for: .normal)
+            
+            // Set the time input fields to the user's input values, or default 1.5hrs if no input
+            self.hoursInput.text = self.userTimes.0
+            self.minutesInput.text = self.userTimes.1
+            self.secondsInput.text = self.userTimes.2
             
             // allow the user to change the values of the text fields once more
             self.hoursInput.isUserInteractionEnabled = true
@@ -219,16 +224,33 @@ class HomeViewController: UIViewController {
     
     // register the user's time input from the text fields on screen
     @IBAction func userTimeInput(_ sender: Any) {
-        // ensure the current input text field have default values
-        let hours: String = hoursInput.text ?? "0"
+        // Get the time input fields
+        let hours: String = hoursInput.text ?? "1"
         let minutes: String = minutesInput.text ?? "30"
         let seconds: String = secondsInput.text ?? "0"
+        
+        // Check the fields for valid input data. If not, tell the user and set to 0.
+        if hours == "" || Int(hours)! < 0 {
+            showErrorMessage(message: "Invalid input in hours - input changed to 0.")
+            hoursInput.text = "0"
+            return
+        }
+        if minutes == "" || Int(minutes)! < 0 {
+            showErrorMessage(message: "Invalid input in minutes - input changed to 0.")
+            minutesInput.text = "0"
+            return
+        }
+        if seconds == "" || Int(seconds)! < 0 {
+            showErrorMessage(message: "Invalid input in seconds - input changed to 0.")
+            secondsInput.text = "0"
+            return
+        }
         
         // reset the value of the counter if new input is registered
         count = 0
         
         // check if input can be converted to an int
-        // conver the integer to the huor equivalent in seconds
+        // conver the integer to the hour equivalent in seconds
         if let hrs = Int(hours) { count += hrs * 3600 }
         if let mins = Int(minutes) { count += mins * 60 }
         if let secs = Int(seconds) { count += secs }
@@ -267,6 +289,11 @@ class HomeViewController: UIViewController {
             hoursInput.isUserInteractionEnabled = true
             minutesInput.isUserInteractionEnabled = true
             secondsInput.isUserInteractionEnabled = true
+            
+            // Set the time input fields to the user's input values, or default 1.5hrs if no input
+            hoursInput.text = userTimes.0
+            minutesInput.text = userTimes.1
+            secondsInput.text = userTimes.2
             
             // send an alert to the user
             let alert = UIAlertController(title: "Focus session finished", message: "Time to take a break!", preferredStyle: .alert)
