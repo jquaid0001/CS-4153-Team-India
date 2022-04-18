@@ -362,11 +362,11 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="33" translatesAutoresizingMaskIntoConstraints="NO" id="hdQ-Jz-1Sc" userLabel="ButtonStack">
-                                        <rect key="frame" x="64.5" y="295" width="196" height="44"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="hdQ-Jz-1Sc" userLabel="ButtonStack">
+                                        <rect key="frame" x="37.5" y="295" width="250" height="44"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N5P-ir-OXU">
-                                                <rect key="frame" x="0.0" y="0.0" width="82" height="44"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="120" height="44"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="26"/>
                                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -378,16 +378,21 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wVB-Mn-fX6">
-                                                <rect key="frame" x="115" y="0.0" width="81" height="44"/>
+                                                <rect key="frame" x="130" y="0.0" width="120" height="44"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="26"/>
                                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                <state key="normal" title="RESET"/>
+                                                <state key="normal" title="END"/>
                                                 <connections>
                                                     <action selector="resetTapped:" destination="A17-4g-kQZ" eventType="touchUpInside" id="ouI-LU-gIP"/>
                                                 </connections>
                                             </button>
                                         </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="250" id="53B-yj-Rne"/>
+                                            <constraint firstItem="wVB-Mn-fX6" firstAttribute="leading" secondItem="N5P-ir-OXU" secondAttribute="trailing" constant="10" id="NoT-1d-ZbN"/>
+                                            <constraint firstItem="wVB-Mn-fX6" firstAttribute="width" secondItem="N5P-ir-OXU" secondAttribute="width" id="l2E-ow-7el"/>
+                                        </constraints>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="crs-44-HbW" userLabel="TimeSpentStack">
                                         <rect key="frame" x="12.5" y="368" width="300" height="44"/>

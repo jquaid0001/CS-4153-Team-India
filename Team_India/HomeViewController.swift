@@ -49,8 +49,6 @@ class HomeViewController: UIViewController {
         // change the color of the start button to green
         startStopButton.setTitleColor(UIColor.green, for: .normal)
         
-        // Store the current date in the date variable for formatting below
-        let currDate = NSDate()
         let dateFormat = DateFormatter()
         // ensure the time showing is 12 hour time and not 24 hour time
         dateFormat.dateFormat = "h:mm a"
@@ -114,7 +112,7 @@ class HomeViewController: UIViewController {
             // change the color back to green
             startStopButton.setTitleColor(UIColor.green, for: .normal)
             // change the text of the button back to START
-            startStopButton.setTitle("START", for: .normal)
+            startStopButton.setTitle("RESUME", for: .normal)
             
             // Add the current time that has elapsed to the focusSessions array
             
@@ -145,12 +143,12 @@ class HomeViewController: UIViewController {
             // print out statement to confirm time in between completion of focus session has been added
             print("TESTING: Time in between focus sessions has been added to  \(focusSessions[nextIndex].date), for workingOn  \(focusSessions[nextIndex].workingOn),the new time stored is, \(focusSessions[nextIndex].time.hours) hours, \(focusSessions[nextIndex].time.minutes) minutes, and \(focusSessions[nextIndex].time.seconds) seconds")
         }
-        // if the timer is not running and the user tapped on "START"
+        // if the timer is not running and the user tapped on "START" or "RESUME"
         else {
             // change the boolean value to reflect the running timer
             isTimerRunning = true
             // change the text of the button
-            startStopButton.setTitle("STOP", for: .normal)
+            startStopButton.setTitle("PAUSE", for: .normal)
             // change the color of the button to red while timer is running
             startStopButton.setTitleColor(UIColor.red, for: .normal)
             // Keep the user from being able to change the text field balues while the timer is running
