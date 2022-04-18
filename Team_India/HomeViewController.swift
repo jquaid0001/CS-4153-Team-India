@@ -200,6 +200,8 @@ class HomeViewController: UIViewController {
             self.timer.invalidate()
             // Set the isTimerRunning to false
             isTimerRunning = false
+            // Clear the text in the workingOn field
+            self.workingOnField.text = ""
             
             // set the current text in the label to all zeroes
             self.timerDisplay.text = self.convertTimeToString(hours: 0, minutes: 0, seconds: 0)
@@ -332,7 +334,9 @@ class HomeViewController: UIViewController {
             
             // Make sure count shows as 0
             self.count = 0
-            // set the current text in the label to all zeroes
+            
+            // Clear the text in the workingOn field
+            self.workingOnField.text = ""
             
             // Reset the timer to all zeroes
             self.timerDisplay.text = self.convertTimeToString(hours: 0, minutes: 0, seconds: 0)
