@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="A17-4g-kQZ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="e6C-0g-Cfm">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
@@ -569,7 +569,6 @@
         <!--Item-->
         <scene sceneID="08t-td-3fk">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="iuj-qQ-vh9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <navigationController id="kQG-x8-jAI" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="VtJ-5B-j88"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Lcj-OV-Rpz">
@@ -580,6 +579,7 @@
                         <segue destination="oBl-iR-1dN" kind="relationship" relationship="rootViewController" id="88E-Km-0hh"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iuj-qQ-vh9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2632" y="1458"/>
         </scene>
@@ -621,7 +621,6 @@
         <!--Item-->
         <scene sceneID="2jJ-Ht-Tia">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="9Zz-x5-xPd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <navigationController id="QJB-Og-yYJ" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="fl7-dx-EYw"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="06d-N2-mPq">
@@ -632,13 +631,13 @@
                         <segue destination="tWh-10-Mtl" kind="relationship" relationship="rootViewController" id="g63-6k-DwZ"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9Zz-x5-xPd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3496" y="1458"/>
         </scene>
         <!--Item-->
         <scene sceneID="C7B-JR-Q7Z">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="6VX-HN-1J9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <navigationController id="gPX-2r-6ax" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="L0S-hm-Eoc"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="evI-hK-F5M">
@@ -649,6 +648,7 @@
                         <segue destination="aDH-es-VF9" kind="relationship" relationship="rootViewController" id="oAh-2h-KxI"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6VX-HN-1J9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4387" y="1458"/>
         </scene>
