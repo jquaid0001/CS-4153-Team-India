@@ -479,6 +479,9 @@
                                 <buttonConfiguration key="configuration" style="plain" title="GraphType">
                                     <color key="baseForegroundColor" systemColor="labelColor"/>
                                 </buttonConfiguration>
+                                <connections>
+                                    <segue destination="5Kf-av-K6g" kind="presentation" modalPresentationStyle="fullScreen" modalTransitionStyle="flipHorizontal" id="wQQ-FT-thf"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Detail View" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ifx-5n-K4b">
                                 <rect key="frame" x="89" y="44" width="236" height="43"/>
@@ -563,22 +566,38 @@
             </objects>
             <point key="canvasLocation" x="28.985507246376812" y="69.642857142857139"/>
         </scene>
-        <!--Line Graph Nav Controller-->
-        <scene sceneID="U3a-E6-8D3">
+        <!--Item-->
+        <scene sceneID="08t-td-3fk">
             <objects>
-                <navigationController title="Line Graph Nav Controller" id="ApY-gn-psV" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="X4Y-KD-DPx"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="gpQ-hz-lIi">
-                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iuj-qQ-vh9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <navigationController id="kQG-x8-jAI" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="VtJ-5B-j88"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Lcj-OV-Rpz">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="DtY-7Y-vbu" kind="relationship" relationship="rootViewController" id="bgw-EI-GM7"/>
+                        <segue destination="oBl-iR-1dN" kind="relationship" relationship="rootViewController" id="88E-Km-0hh"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Vge-dW-mCU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1959" y="1426"/>
+            <point key="canvasLocation" x="2632" y="1458"/>
+        </scene>
+        <!--Bar-->
+        <scene sceneID="lVp-ha-f6i">
+            <objects>
+                <viewController id="oBl-iR-1dN" customClass="BarGraphViewController" customModule="Team_India" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="jPF-Vf-UPC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="lIK-nb-ujF"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Bar" id="8IH-Ci-HH8"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Tff-83-GHO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2632" y="2233"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="A03-fo-10R">
@@ -590,120 +609,84 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
-                        <segue destination="ApY-gn-psV" kind="relationship" relationship="viewControllers" id="Xqj-EP-Wgq"/>
-                        <segue destination="j21-4N-gwH" kind="relationship" relationship="viewControllers" id="TYX-tn-Y0P"/>
-                        <segue destination="Rdd-Sm-bqb" kind="relationship" relationship="viewControllers" id="Mub-TL-H3C"/>
+                        <segue destination="kQG-x8-jAI" kind="relationship" relationship="viewControllers" id="R3c-s9-Vjh"/>
+                        <segue destination="QJB-Og-yYJ" kind="relationship" relationship="viewControllers" id="yt5-lQ-jXX"/>
+                        <segue destination="gPX-2r-6ax" kind="relationship" relationship="viewControllers" id="ned-C6-a3d"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AEl-Hp-O8J" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3497" y="717"/>
         </scene>
-        <!--Bar Graph Nav Controller-->
-        <scene sceneID="EQZ-Mh-kuH">
+        <!--Item-->
+        <scene sceneID="2jJ-Ht-Tia">
             <objects>
-                <navigationController title="Bar Graph Nav Controller" id="j21-4N-gwH" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="d8v-Og-3Rf"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="Y8B-qK-EIn">
-                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9Zz-x5-xPd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <navigationController id="QJB-Og-yYJ" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="fl7-dx-EYw"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="06d-N2-mPq">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="0Mq-F5-0dd" kind="relationship" relationship="rootViewController" id="IYa-JV-OmB"/>
+                        <segue destination="tWh-10-Mtl" kind="relationship" relationship="rootViewController" id="g63-6k-DwZ"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="tlS-0v-5Qj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2659" y="1426"/>
+            <point key="canvasLocation" x="3496" y="1458"/>
         </scene>
-        <!--Histogram Nav Controller-->
-        <scene sceneID="6HL-wN-KvB">
+        <!--Item-->
+        <scene sceneID="C7B-JR-Q7Z">
             <objects>
-                <navigationController title="Histogram Nav Controller" id="Rdd-Sm-bqb" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="N0y-FM-15w"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="HEL-g1-UR4">
-                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6VX-HN-1J9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <navigationController id="gPX-2r-6ax" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="L0S-hm-Eoc"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="evI-hK-F5M">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="4x5-ba-LXU" kind="relationship" relationship="rootViewController" id="lgi-V8-xg4"/>
+                        <segue destination="aDH-es-VF9" kind="relationship" relationship="rootViewController" id="oAh-2h-KxI"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="9EJ-YY-s3U" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3330" y="1426"/>
+            <point key="canvasLocation" x="4387" y="1458"/>
         </scene>
-        <!--Line Graph-->
-        <scene sceneID="CHd-oA-PyC">
+        <!--Line-->
+        <scene sceneID="gca-fn-rET">
             <objects>
-                <viewController id="DtY-7Y-vbu" customClass="LineGraphViewController" customModule="Team_India" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="SWk-ln-moq">
+                <viewController id="tWh-10-Mtl" customClass="LineGraphViewController" customModule="Team_India" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="SXn-Yo-TFd">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Line Graph" translatesAutoresizingMaskIntoConstraints="NO" id="QNp-FL-cyJ">
-                                <rect key="frame" x="37" y="156" width="320" height="432"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="ejj-Do-wm9"/>
-                        <color key="backgroundColor" systemColor="linkColor"/>
+                        <viewLayoutGuide key="safeArea" id="vgz-Rc-4K5"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Line Graph" id="dhG-l4-oyB"/>
+                    <navigationItem key="navigationItem" title="Line" id="1IA-SP-U9Q"/>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="tns-A6-ARf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ew3-VZ-xUt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1972" y="2158"/>
+            <point key="canvasLocation" x="3496" y="2233"/>
         </scene>
-        <!--Bar Graph-->
-        <scene sceneID="88r-58-G4b">
+        <!--Third-->
+        <scene sceneID="2BH-QT-yIb">
             <objects>
-                <viewController id="0Mq-F5-0dd" customClass="BarGraphViewController" customModule="Team_India" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="uVq-1k-DPX">
+                <viewController id="aDH-es-VF9" customClass="ThirdGraphViewController" customModule="Team_India" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="IyH-Or-58U">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Bar Graph" translatesAutoresizingMaskIntoConstraints="NO" id="8Fh-lu-IAm">
-                                <rect key="frame" x="20" y="276" width="373" height="255"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="jIE-vC-gR5"/>
-                        <color key="backgroundColor" systemColor="linkColor"/>
+                        <viewLayoutGuide key="safeArea" id="ndu-Ac-jYO"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Bar Graph" id="6hr-Mh-LKl"/>
+                    <navigationItem key="navigationItem" title="Third" id="QYY-74-bih"/>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="PUg-MH-hZ8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="oEd-1J-GXW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2649" y="2158"/>
-        </scene>
-        <!--Histogram Graph-->
-        <scene sceneID="KWT-Ta-29A">
-            <objects>
-                <viewController id="4x5-ba-LXU" customClass="HistogramViewController" customModule="Team_India" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="5DN-eW-8LX">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Histogram" translatesAutoresizingMaskIntoConstraints="NO" id="6Uq-vk-n6N">
-                                <rect key="frame" x="20" y="230" width="374" height="331"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="FmC-1L-xnz"/>
-                        <color key="backgroundColor" systemColor="linkColor"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="Histogram Graph" id="spa-Xs-Ila"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="P6h-Nv-cvh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3343" y="2158"/>
+            <point key="canvasLocation" x="4387" y="2233"/>
         </scene>
     </scenes>
     <resources>
         <image name="Bar Graph" width="918" height="669"/>
-        <image name="Histogram" width="247" height="204"/>
-        <image name="Line Graph" width="850" height="858"/>
         <image name="background1" width="4000" height="2669"/>
         <image name="divingHelmet2PNGMagic" width="600" height="600"/>
         <image name="drippingWorkWhite" width="1989" height="524"/>

@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2E0C3FC2280F25D700E42A62 /* BarGraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0C3FC1280F25D700E42A62 /* BarGraphViewController.swift */; };
+		2E0C3FC4280F25F500E42A62 /* LineGraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0C3FC3280F25F500E42A62 /* LineGraphViewController.swift */; };
+		2E0C3FC6280F260800E42A62 /* ThirdGraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0C3FC5280F260800E42A62 /* ThirdGraphViewController.swift */; };
+		2EB6144B280E6D4F0033D858 /* Charts in Frameworks */ = {isa = PBXBuildFile; productRef = 2EB6144A280E6D4F0033D858 /* Charts */; };
 		DD0B64C427D791F100E0FE9D /* FormValidationUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0B64C327D791F100E0FE9D /* FormValidationUtil.swift */; };
 		DD2DE12527DA9EAB00A22663 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DD2DE12427DA9EAB00A22663 /* GoogleService-Info.plist */; };
 		DD2DE12827DAA1A500A22663 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = DD2DE12727DAA1A500A22663 /* FirebaseAnalytics */; };
@@ -21,13 +25,15 @@
 		DD3918DC27D18B80008CD1D9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DD3918DA27D18B80008CD1D9 /* LaunchScreen.storyboard */; };
 		DD3918E427D24EF4008CD1D9 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD3918E327D24EF4008CD1D9 /* LoginViewController.swift */; };
 		DD3918E627D24F12008CD1D9 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD3918E527D24F12008CD1D9 /* HomeViewController.swift */; };
-		DD3918E827D24F20008CD1D9 /* GraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD3918E727D24F20008CD1D9 /* GraphViewController.swift */; };
 		DD3918EA27D24F2D008CD1D9 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD3918E927D24F2D008CD1D9 /* DetailViewController.swift */; };
 		DD3918EC27D24F5C008CD1D9 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD3918EB27D24F5C008CD1D9 /* RegistrationViewController.swift */; };
 		DD44745B27EE13AD0014F2EC /* PasswordTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD44745A27EE13AD0014F2EC /* PasswordTextField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2E0C3FC1280F25D700E42A62 /* BarGraphViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarGraphViewController.swift; sourceTree = "<group>"; };
+		2E0C3FC3280F25F500E42A62 /* LineGraphViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineGraphViewController.swift; sourceTree = "<group>"; };
+		2E0C3FC5280F260800E42A62 /* ThirdGraphViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdGraphViewController.swift; sourceTree = "<group>"; };
 		DD0B64C327D791F100E0FE9D /* FormValidationUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormValidationUtil.swift; sourceTree = "<group>"; };
 		DD2DE12427DA9EAB00A22663 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		DD3918C927D18B7F008CD1D9 /* Team_India.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Team_India.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -40,7 +46,6 @@
 		DD3918DD27D18B80008CD1D9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DD3918E327D24EF4008CD1D9 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		DD3918E527D24F12008CD1D9 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
-		DD3918E727D24F20008CD1D9 /* GraphViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphViewController.swift; sourceTree = "<group>"; };
 		DD3918E927D24F2D008CD1D9 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		DD3918EB27D24F5C008CD1D9 /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
 		DD44745A27EE13AD0014F2EC /* PasswordTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordTextField.swift; sourceTree = "<group>"; };
@@ -51,6 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2EB6144B280E6D4F0033D858 /* Charts in Frameworks */,
 				DD2DE12C27DAA1A500A22663 /* FirebaseDatabase in Frameworks */,
 				DD2DE12F27DBAAEA00A22663 /* FirebaseFirestore in Frameworks */,
 				DD2DE12827DAA1A500A22663 /* FirebaseAnalytics in Frameworks */,
@@ -104,13 +110,15 @@
 				DD3918E327D24EF4008CD1D9 /* LoginViewController.swift */,
 				DD3918EB27D24F5C008CD1D9 /* RegistrationViewController.swift */,
 				DD3918E527D24F12008CD1D9 /* HomeViewController.swift */,
-				DD3918E727D24F20008CD1D9 /* GraphViewController.swift */,
 				DD3918E927D24F2D008CD1D9 /* DetailViewController.swift */,
 				DD3918D827D18B80008CD1D9 /* Assets.xcassets */,
 				DD3918DA27D18B80008CD1D9 /* LaunchScreen.storyboard */,
 				DD3918DD27D18B80008CD1D9 /* Info.plist */,
 				DD2DE12427DA9EAB00A22663 /* GoogleService-Info.plist */,
 				DD3918D527D18B7F008CD1D9 /* Team_India.xcdatamodeld */,
+				2E0C3FC1280F25D700E42A62 /* BarGraphViewController.swift */,
+				2E0C3FC3280F25F500E42A62 /* LineGraphViewController.swift */,
+				2E0C3FC5280F260800E42A62 /* ThirdGraphViewController.swift */,
 			);
 			path = Team_India;
 			sourceTree = "<group>";
@@ -136,6 +144,7 @@
 				DD2DE12927DAA1A500A22663 /* FirebaseAuth */,
 				DD2DE12B27DAA1A500A22663 /* FirebaseDatabase */,
 				DD2DE12E27DBAAEA00A22663 /* FirebaseFirestore */,
+				2EB6144A280E6D4F0033D858 /* Charts */,
 			);
 			productName = Team_India;
 			productReference = DD3918C927D18B7F008CD1D9 /* Team_India.app */;
@@ -167,6 +176,7 @@
 			mainGroup = DD3918C027D18B7F008CD1D9;
 			packageReferences = (
 				DD2DE12627DAA1A500A22663 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				2EB61449280E6D4F0033D858 /* XCRemoteSwiftPackageReference "Charts" */,
 			);
 			productRefGroup = DD3918CA27D18B7F008CD1D9 /* Products */;
 			projectDirPath = "";
@@ -197,15 +207,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				DD44745B27EE13AD0014F2EC /* PasswordTextField.swift in Sources */,
+				2E0C3FC6280F260800E42A62 /* ThirdGraphViewController.swift in Sources */,
 				DD3918CD27D18B7F008CD1D9 /* AppDelegate.swift in Sources */,
-				DD3918E827D24F20008CD1D9 /* GraphViewController.swift in Sources */,
 				DD3918EC27D24F5C008CD1D9 /* RegistrationViewController.swift in Sources */,
 				DD3918D727D18B7F008CD1D9 /* Team_India.xcdatamodeld in Sources */,
 				DD3918E427D24EF4008CD1D9 /* LoginViewController.swift in Sources */,
+				2E0C3FC4280F25F500E42A62 /* LineGraphViewController.swift in Sources */,
 				DD0B64C427D791F100E0FE9D /* FormValidationUtil.swift in Sources */,
 				DD3918CF27D18B7F008CD1D9 /* SceneDelegate.swift in Sources */,
 				DD3918E627D24F12008CD1D9 /* HomeViewController.swift in Sources */,
 				DD3918EA27D24F2D008CD1D9 /* DetailViewController.swift in Sources */,
+				2E0C3FC2280F25D700E42A62 /* BarGraphViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -431,6 +443,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		2EB61449280E6D4F0033D858 /* XCRemoteSwiftPackageReference "Charts" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/danielgindi/Charts.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
 		DD2DE12627DAA1A500A22663 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -442,6 +462,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		2EB6144A280E6D4F0033D858 /* Charts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2EB61449280E6D4F0033D858 /* XCRemoteSwiftPackageReference "Charts" */;
+			productName = Charts;
+		};
 		DD2DE12727DAA1A500A22663 /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = DD2DE12627DAA1A500A22663 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
