@@ -27,10 +27,8 @@ class DetailViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        // Check for data
-        for session in focusSessions {
-            print(session)
-        }
+        
+        
     }
     
     
@@ -49,7 +47,6 @@ class DetailViewController: UIViewController {
             // Write the focusSession to Firestore
             // Get the collection of focusSessions from the Firestore DB, then populate the focusSessions array for graph display
             firestoreDB.collection("users").document(user.uid).collection("focusSessions").getDocuments { dbCollection, error in
-                print("in the getDocuments closure")
                 // Check if any errors in get
                 if error == nil {
                     // unwrap the dbCollectioon returned from Firestore and append each session to the focusSession array
