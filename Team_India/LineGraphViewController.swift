@@ -8,7 +8,7 @@
 import Charts
 import UIKit
 
-class SecondViewController: UIViewController, ChartViewDelegate {
+class LineGraphViewController: UIViewController, ChartViewDelegate {
     
     lazy var lineChart: LineChartView = {
         let chartView = LineChartView()

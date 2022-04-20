@@ -8,7 +8,7 @@
 import Charts
 import UIKit
 
-class ThirdViewController: UIViewController, ChartViewDelegate {
+class ThirdGraphViewController: UIViewController, ChartViewDelegate {
 
     var pieChart = PieChartView()
     

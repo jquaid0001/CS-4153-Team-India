@@ -8,7 +8,7 @@
 import Charts // Import dependancy
 import UIKit
 
-class ViewController: UIViewController, ChartViewDelegate {
+class BarGraphViewController: UIViewController, ChartViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
