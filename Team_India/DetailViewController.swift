@@ -41,8 +41,7 @@ class DetailViewController: UIViewController {
         // Do any additional setup after loading the view.
         // Set the color of the logout button to white for visibility
         self.navigationController?.navigationBar.tintColor = UIColor.black
-        
-        print(graphViewPlaceholder.frame)
+
         // Get the data from Firestore
         getFirestoreData()
         
@@ -51,7 +50,6 @@ class DetailViewController: UIViewController {
         self.barGraph.rightAxis.enabled = false
         self.barGraph.frame = self.graphViewPlaceholder.frame
         self.view.addSubview(self.barGraph)
-        print(barGraph.frame)
         
     }
     
@@ -102,10 +100,7 @@ class DetailViewController: UIViewController {
     // MARK: - Funcs
     
     // Gets the user's focusSession from the Firestore DB
-    private func getFirestoreData() {
-        
-        print("getting data from firestore")
-        
+    private func getFirestoreData() {        
         // Get a reference to the Firestore DB
         let firestoreDB = Firestore.firestore()
         // Get the currently signed in user
