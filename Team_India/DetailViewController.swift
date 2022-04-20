@@ -13,6 +13,7 @@ class DetailViewController: UIViewController {
 
     // The outlet for the position of the graph view
     @IBOutlet weak var graphViewPlaceholder: UIImageView!
+    @IBOutlet weak var startDatePicker: UIDatePicker!
     
     // The outlets to select the bar type
     @IBOutlet weak var selectBarButton: UIButton!
@@ -25,6 +26,7 @@ class DetailViewController: UIViewController {
     // The vars needed to create graphs
     lazy var barGraph: BarChartView = {
         let barChart = ChartMaker.makeBarChart()
+        barChart.data = setBarGraphData(fromDate: startDatePicker.date, toDate: startDatePicker.date)
         return barChart
     }()
     
@@ -50,7 +52,7 @@ class DetailViewController: UIViewController {
         self.barGraph.rightAxis.enabled = false
         self.barGraph.frame = self.graphViewPlaceholder.frame
         self.view.addSubview(self.barGraph)
-        
+
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -145,6 +147,67 @@ class DetailViewController: UIViewController {
         // Add the action to the alertController
         alertController.addAction(okAction)
         self.present(alertController, animated: true)
+    }
+    
+    func setBarGraphData(fromDate: Date, toDate: Date) -> BarChartData {
+        // Get the number of days to display. Pass the from and to date to Calendar, grab the number of days
+        //      from the result, then add 1 since we always want to include the start date.
+        let numDays = (Calendar.current.dateComponents([.day], from: fromDate, to: toDate).day!) + 1
+        print(numDays)
+        
+        let filteredArray = [(date: "4/14/2022", workingOn: "setting up stuff", time:(4, 3, 2))]
+        
+        var entries: [[BarChartDataEntry]] = [[BarChartDataEntry]]()
+        
+        // Create BarCharDataEntry arrays inside of entries prior to populating with focusSessions
+        for _ in 0..<numDays {
+            entries.append([BarChartDataEntry]())
+        }
+        
+        print(entries.count)
+        // **FIXME** The method in which to pull data; here are two dataSets atm
+        // Format [(date:String, time:(hours:Int, minutes: Int, seconds:Int ))]
+        /*for x in 0..<7 {
+            entries.append(BarChartDataEntry(x: Double(x), y: 5))
+            entries2.append(BarChartDataEntry(x: Double(x), y: 10))
+        }
+       
+        */
+        
+        var dataSets = [BarChartDataSet]()
+        
+        var labels: [String] = []
+        for i in 1...entries.count {
+            labels[i] = filteredArray[i].date
+        }
+        
+        // Initialize the dataSets array with the needed number of BarCharDataSets
+        for i in 1...numDays {
+            dataSets[i] = BarChartDataSet(label: labels[i])
+        }
+        
+        // Build each of the data sets with the entries
+        for i in 1...entries.count {
+            for entry in entries[i] {
+                dataSets[i].append(entry)
+            }
+        }
+        
+        for entry in dataSets[1] {
+            print(entry)
+        }
+        
+        // Data set build
+        //let set = BarChartDataSet(entries: entries[0], label: "Session 1")
+        //let set2 = BarChartDataSet(entries: entries2[1], label: "Session 2")
+        
+        
+        //set.setColor(UIColor(red: 0.0, green: 0.42, blue: 0.46, alpha: 1.0))  // **FIXME**
+        //set2.setColor(UIColor(red: 0.75, green: 0.85, blue: 0.86, alpha: 1.0))
+        
+        let data = BarChartData(dataSets: dataSets)
+        
+        return data
     }
 
     /*
