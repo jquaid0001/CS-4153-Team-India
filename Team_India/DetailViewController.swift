@@ -7,13 +7,34 @@
 
 import UIKit
 import Firebase
+import Charts
 
 class DetailViewController: UIViewController {
 
+    // The outlet for the position of the graph view
+    @IBOutlet weak var graphViewPlaceholder: UIImageView!
+    
+    // The outlets to select the bar type
+    @IBOutlet weak var selectBarButton: UIButton!
+    @IBOutlet weak var selectLineButton: UIButton!
+    
+    
     // Array of focusSession tuples for graph display
     private var focusSessions: [(date: String, workingOn: String, time:(hours: Int, minutes: Int, seconds: Int ))] = []
     
-
+    // The vars needed to create graphs
+    lazy var barGraph: BarChartView = {
+        let barChart = ChartMaker.makeBarChart()
+        return barChart
+    }()
+    
+    lazy var lineGraph: LineChartView = {
+        let lineChart = ChartMaker.makeLineChart()
+        return lineChart
+    }()
+    
+    // MARK: - View Lifecycles
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -21,8 +42,16 @@ class DetailViewController: UIViewController {
         // Set the color of the logout button to white for visibility
         self.navigationController?.navigationBar.tintColor = UIColor.black
         
+        print(graphViewPlaceholder.frame)
         // Get the data from Firestore
         getFirestoreData()
+        
+        // Show the bar graph as the default graph
+        
+        self.barGraph.rightAxis.enabled = false
+        self.barGraph.frame = self.graphViewPlaceholder.frame
+        self.view.addSubview(self.barGraph)
+        print(barGraph.frame)
         
     }
     
@@ -31,6 +60,46 @@ class DetailViewController: UIViewController {
         
     }
     
+    // MARK: - Handlers
+    
+    @IBAction func barTypeButtonHandler(_ sender: UIButton) {
+        
+        // Handle the button taps to select a graph type
+        switch sender {
+        case selectBarButton:
+            // Show the bar graph
+            DispatchQueue.main.async {
+                // Remove the lineGraph from the view
+                self.lineGraph.removeFromSuperview()
+                // Add the barGraph to the view
+                self.view.addSubview(self.barGraph)
+                self.barGraph.rightAxis.enabled = false
+                self.barGraph.frame = self.barGraph.frame
+                // Reanimate the graph
+                self.barGraph.animate(xAxisDuration: 2.5)
+            }
+        case selectLineButton:
+            // Show the line graph
+            DispatchQueue.main.async {
+                // Remove the barGraph from the view
+                self.barGraph.removeFromSuperview()
+                // Add the lineGraph to the view
+                self.view.addSubview(self.lineGraph)
+                self.lineGraph.rightAxis.enabled = false
+                self.lineGraph.frame = self.barGraph.frame
+                // Reanimate the graph
+                self.lineGraph.animate(xAxisDuration: 2.5)
+            }
+        default:
+            // Do nothing
+            return
+        }
+        
+    }
+    
+    
+    
+    // MARK: - Funcs
     
     // Gets the user's focusSession from the Firestore DB
     private func getFirestoreData() {
