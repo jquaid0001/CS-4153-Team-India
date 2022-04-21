@@ -8,6 +8,7 @@
 import UIKit
 import Firebase
 import Charts
+import SwiftUI
 
 class DetailViewController: UIViewController {
 
@@ -27,6 +28,7 @@ class DetailViewController: UIViewController {
     lazy var barGraph: BarChartView = {
         let barChart = ChartMaker.makeBarChart()
         barChart.data = setBarGraphData(fromDate: startDatePicker.date, toDate: startDatePicker.date)
+ 
         return barChart
     }()
     
@@ -155,73 +157,98 @@ class DetailViewController: UIViewController {
         let numDays = (Calendar.current.dateComponents([.day], from: fromDate, to: toDate).day!) + 1
         print(numDays)
         
+        
+        #warning("fix this. This is static data, need to use a filtered array using the filter Sai wrote")
         let filteredArray = [
-            (date: "4/14/2022", workingOn: "setting up stuff", time:(hours: 4, minutes: 3, seconds: 2)),
-            (date: "4/14/2022", workingOn: "setting up stuff", time:(hours: 4, minutes: 3, seconds: 2)),
-            (date: "4/15/2022", workingOn: "setting up stuff", time:(hours: 4, minutes: 3, seconds: 2))
+            (date: "4/14/2022", workingOn: "setting up stuff", time:(hours: 1, minutes: 3, seconds: 2)),
+            (date: "4/14/2022", workingOn: "stuff in 4/14", time:(hours: 3, minutes: 3, seconds: 2)),
+            (date: "4/14/2022", workingOn: "still in 4/14", time:(hours: 2, minutes: 3, seconds: 2)),
+            (date: "4/15/2022", workingOn: "now in 4/15", time:(hours: 8, minutes: 3, seconds: 2)),
+
         ]
         
-        var dataDictionary = Dictionary.init(grouping: filteredArray, by: { $0.date } )
-        
-        for entry in dataDictionary {
-            print(entry)
-        }
+        let dataDictionary = Dictionary.init(grouping: filteredArray, by: { $0.date } )
         
         var entries: [[BarChartDataEntry]] = [[BarChartDataEntry]]()
         
-        // Create BarCharDataEntry arrays inside of entries prior to populating with focusSessions
-        for _ in 0..<numDays {
-            entries.append([BarChartDataEntry]())
+        // Add the entries from the dataDictionary to their respective entries position
+        var day = 0
+        for (key, session) in dataDictionary {
+            var entriesIndex = 0
+            for sessionNumber in session {
+                if entriesIndex > entries.count - 1 {
+                    entries.append([BarChartDataEntry]())
+                }
+                entries[entriesIndex].append(BarChartDataEntry(x: Double(day), y: Double(sessionNumber.time.hours)))
+                print("\(key) : \(sessionNumber.workingOn)")
+                entriesIndex += 1
+            }
+            day += 1
         }
-        
-        for i in 0..<filteredArray.count {
-            entries[i].append(BarChartDataEntry(x: Double(i), y: Double(filteredArray[i].time.hours)))
-        }
-        
-        print(entries.count)
-        // **FIXME** The method in which to pull data; here are two dataSets atm
-        // Format [(date:String, time:(hours:Int, minutes: Int, seconds:Int ))]
-        /*for x in 0..<7 {
-            entries.append(BarChartDataEntry(x: Double(x), y: 5))
-            entries2.append(BarChartDataEntry(x: Double(x), y: 10))
-        }
-       
-        */
+
         
         var dataSets = [BarChartDataSet]()
         
         var labels: [String] = [String]()
-        for i in 0..<entries.count {
-            labels.append(filteredArray[i].date)
+
+        for key in dataDictionary.keys {
+            labels.append(key)
         }
         
         // Initialize the dataSets array with the needed number of BarCharDataSets
-        for i in 0..<numDays {
-            dataSets.append(BarChartDataSet(label: labels[i]))
+        for i in 0..<entries.count {
+            dataSets.append(BarChartDataSet())
+            dataSets[i] = BarChartDataSet(entries: entries[i], label: "Session \(i)")
+            dataSets[i].colors = [setBarColor(sessionNumber: i)]
         }
         
-        // Build each of the data sets with the entries
         for i in 0..<entries.count {
-            for entry in entries[i] {
-                dataSets[i].append(entry)
+            for j in 0..<entries[i].count {
+                print("session number \(j) in day \(i)")
+                print(entries[i][j])
             }
         }
-        
-        for entry in dataSets[0] {
-            print(entry)
-        }
-        
-        // Data set build
-        //let set = BarChartDataSet(entries: entries[0], label: "Session 1")
-        //let set2 = BarChartDataSet(entries: entries2[1], label: "Session 2")
-        
-        
-        //set.setColor(UIColor(red: 0.0, green: 0.42, blue: 0.46, alpha: 1.0))  // **FIXME**
-        //set2.setColor(UIColor(red: 0.75, green: 0.85, blue: 0.86, alpha: 1.0))
         
         let data = BarChartData(dataSets: dataSets)
         
         return data
+    }
+    
+    
+    // Sets the color of each individual session in the bar chart (the bar sections)
+    func setBarColor(sessionNumber: Int) -> UIColor {
+        switch sessionNumber {
+        case 0:
+            return UIColor.blue
+        case 1:
+            return UIColor.orange
+        case 2:
+            return UIColor.green
+        case 3:
+            return UIColor.cyan
+        case 4:
+            return UIColor.yellow
+        case 5:
+            return UIColor.magenta
+        case 6:
+            return UIColor.green
+        case 7:
+            return UIColor.blue
+        case 8:
+            return UIColor.orange
+        case 9:
+            return UIColor.green
+        case 10:
+            return UIColor.cyan
+        case 11:
+            return UIColor.yellow
+        case 12:
+            return UIColor.magenta
+        case 13:
+            return UIColor.green
+        default:
+            return UIColor.magenta
+        }
     }
 
     /*

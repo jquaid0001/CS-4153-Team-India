@@ -77,8 +77,7 @@ class ChartMaker {
         
         let data = BarChartData(dataSets: [set, set2])
         barChart.data = data
-        
-        
+
         return barChart
     }
     
