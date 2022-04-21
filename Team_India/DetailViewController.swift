@@ -264,10 +264,6 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
             dailySessionIndex += 1
         }
         
-        for sessionTimes in dailySessionTimes {
-            print(dailySessionTimes)
-        }
-        
         
         for i in 0..<currentDict.keys.count {
             if i > entries.count - 1 {
@@ -293,12 +289,14 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
             dataSets[i].colors = [.systemMint, .green, .blue, .yellow, .cyan, .magenta, .purple, .red]
         }
         
+        /* For testing
         for i in 0..<entries.count {
             for j in 0..<entries[i].count {
                 print("session number \(j) in day \(i)")
                 print(entries[i][j])
             }
         }
+         */
         
         let data = BarChartData(dataSets: dataSets)
         
