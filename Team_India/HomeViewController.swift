@@ -200,6 +200,10 @@ class HomeViewController: UIViewController {
             self.timer.invalidate()
             // Set the isTimerRunning to false
             isTimerRunning = false
+            
+            // Save the session to the array and to FireStore
+            saveSession()
+            
             // Clear the text in the workingOn field
             self.workingOnField.text = ""
             
@@ -304,33 +308,8 @@ class HomeViewController: UIViewController {
             }))
             self.present(alert, animated: true, completion: nil)
             
-            // store the current date
-            let currDate = DateFormatter.localizedString(from: NSDate() as Date, dateStyle: .short, timeStyle: .none)
-            // Get the text from workingOnField. If nil, just put an empty string
-            let workingOn = workingOnField.text ?? ""
-            
-            // convert the time elapsed in seconds to hours:minutes:seconds
-            let addTime = convertToHrsMinsSecs(seconds: timeElapsed)
-            
-            // determine the last index in the array
-            var nextIndex = focusSessions.count - 1
-            // add the current completed session to the focusSessions array at most recent date if still
-            // the same as today's date, otherwise, create a new entry
-            if nextIndex > -1 && focusSessions[nextIndex].date == currDate {
-                // add the hours elapsed
-                focusSessions[nextIndex].time.hours += addTime.0
-                // add the minutes elapsed
-                focusSessions[nextIndex].time.minutes += addTime.1
-                // add the seconds elapsed
-                focusSessions[nextIndex].time.seconds += addTime.2
-            } else {
-                // adding the current session to the end of the array
-                focusSessions.append((currDate, workingOn, addTime))
-                nextIndex += 1
-            }
-
-            // Write the focusSession to the user's Firebase Firestore DB
-            writeSessionToFirebase(session: nextIndex)
+            // Save the session to the array and to FireStore
+            saveSession()
             
             // Make sure count shows as 0
             self.count = 0
@@ -345,8 +324,6 @@ class HomeViewController: UIViewController {
             // change the text of the button back to START
             self.startStopButton.setTitle("START", for: .normal)
             
-            // showing how to print out the focus sessions on the screen
-            print("TESTING: The current focus session has been logged on day \(focusSessions[nextIndex].date.split(separator: "/")[1]) of month \(focusSessions[nextIndex].date.split(separator: "/")[nextIndex]) for for a total of \(focusSessions[nextIndex].time.hours) hours, \(focusSessions[nextIndex].time.minutes) minutes, and \(focusSessions[nextIndex].time.seconds) seconds")
         }
         
         // Store the current date in the date variable for formatting below
@@ -377,6 +354,40 @@ class HomeViewController: UIViewController {
         answer += String(format: "0%2d", seconds)
         // return the final string to display for the user
         return answer
+    }
+    
+    // Writes the session to the array as well as calls writeSessionToFirebase
+    private func saveSession() {
+        // store the current date
+        let currDate = DateFormatter.localizedString(from: NSDate() as Date, dateStyle: .short, timeStyle: .none)
+        // Get the text from workingOnField. If nil, just put an empty string
+        let workingOn = workingOnField.text ?? ""
+        
+        // convert the time elapsed in seconds to hours:minutes:seconds
+        let addTime = convertToHrsMinsSecs(seconds: timeElapsed)
+        
+        // determine the last index in the array
+        var nextIndex = focusSessions.count - 1
+        // add the current completed session to the focusSessions array at most recent date if still
+        // the same as today's date, otherwise, create a new entry
+        if nextIndex > -1 && focusSessions[nextIndex].date == currDate {
+            // add the hours elapsed
+            focusSessions[nextIndex].time.hours += addTime.0
+            // add the minutes elapsed
+            focusSessions[nextIndex].time.minutes += addTime.1
+            // add the seconds elapsed
+            focusSessions[nextIndex].time.seconds += addTime.2
+        } else {
+            // adding the current session to the end of the array
+            focusSessions.append((currDate, workingOn, addTime))
+            nextIndex += 1
+        }
+
+        // Write the focusSession to the user's Firebase Firestore DB
+        writeSessionToFirebase(session: nextIndex)
+        
+        // showing how to print out the focus sessions on the screen
+        print("TESTING: The current focus session has been logged on day \(focusSessions[nextIndex].date.split(separator: "/")[1]) of month \(focusSessions[nextIndex].date.split(separator: "/")[nextIndex]) for for a total of \(focusSessions[nextIndex].time.hours) hours, \(focusSessions[nextIndex].time.minutes) minutes, and \(focusSessions[nextIndex].time.seconds) seconds")
     }
     
     // The function that writes the passed index of focusSessions (the most recently written focusSession
