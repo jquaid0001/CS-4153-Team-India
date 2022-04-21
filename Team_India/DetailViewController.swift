@@ -37,8 +37,8 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
     
     private var focusSessions: [Session] = []
-        private var currentSessions: [Session] = []
-        private var currentDict: [Date: [Session]] = [:]
+    private var currentSessions: [Session] = []
+    private var currentDict: [Date: [Session]] = [:]
     
     // Array of focusSession tuples for graph display
     //private var focusSessions: [(date: String, workingOn: String, time:(hours: Int, minutes: Int, seconds: Int ))] = []
@@ -123,6 +123,14 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
            }
            self.currentDict = dict
             self.StatsTableview.reloadData()
+        
+        for (key, value) in currentDict {
+            print("day is \(key)")
+            for session in value {
+                print(session)
+            }
+        }
+        
         }
 
     // MARK: - Handlers
@@ -300,7 +308,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         for i in 0..<entries.count {
             dataSets.append(BarChartDataSet())
             dataSets[i] = BarChartDataSet(entries: entries[i], label: "Session \(i)")
-            dataSets[i].colors = [setBarColor(sessionNumber: i)]
+            dataSets[i].colors = [.green, .blue, .yellow, .cyan, .magenta]
         }
         
         for i in 0..<entries.count {
