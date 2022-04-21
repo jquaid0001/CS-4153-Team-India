@@ -9,8 +9,9 @@ import UIKit
 import Firebase
 import Charts
 import SwiftUI
+import Foundation
 
-class DetailViewController: UIViewController {
+class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextViewDelegate {
 
     // The outlet for the position of the graph view
     @IBOutlet weak var graphViewPlaceholder: UIImageView!
@@ -20,9 +21,27 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var selectBarButton: UIButton!
     @IBOutlet weak var selectLineButton: UIButton!
     
+    // Table view
+    @IBOutlet weak var StatsTableview: UITableView!
+    
+    
+    // Date outlets
+    @IBOutlet weak var ennddate: UIDatePicker!
+    @IBOutlet weak var startdate: UIDatePicker!
+    
+    
+    struct Session {
+            let date: Date
+            let workingOn: String
+            let time: (hours: Int, minutes: Int, seconds: Int)
+        }
+    
+    private var focusSessions: [Session] = []
+        private var currentSessions: [Session] = []
+        private var currentDict: [Date: [Session]] = [:]
     
     // Array of focusSession tuples for graph display
-    private var focusSessions: [(date: String, workingOn: String, time:(hours: Int, minutes: Int, seconds: Int ))] = []
+    //private var focusSessions: [(date: String, workingOn: String, time:(hours: Int, minutes: Int, seconds: Int ))] = []
     
     // The vars needed to create graphs
     lazy var barGraph: BarChartView = {
@@ -45,6 +64,12 @@ class DetailViewController: UIViewController {
         // Do any additional setup after loading the view.
         // Set the color of the logout button to white for visibility
         self.navigationController?.navigationBar.tintColor = UIColor.black
+        
+        // date picker
+        startdate.datePickerMode = .date
+                startdate.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged)
+                ennddate.datePickerMode = .date
+                ennddate.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged)
 
         // Get the data from Firestore
         getFirestoreData()
@@ -54,6 +79,13 @@ class DetailViewController: UIViewController {
         self.barGraph.rightAxis.enabled = false
         self.barGraph.frame = self.graphViewPlaceholder.frame
         self.view.addSubview(self.barGraph)
+        
+        // table view
+        view.addSubview(StatsTableview)
+        StatsTableview.delegate = self
+        StatsTableview.dataSource = self
+        filter()
+
 
     }
     
@@ -62,6 +94,37 @@ class DetailViewController: UIViewController {
         
     }
     
+    // Getting the dates when we change
+    @objc func dateChanged(_ sender: UIDatePicker) {
+            self.filter()
+        }
+    
+    // filter function
+    func filter(){
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "MM/dd/yyyy"
+            dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+            let selectedDate = dateFormatter.string(from: startdate.date)
+            let date1 = dateFormatter.date(from: selectedDate)
+            let selectedDate2 = dateFormatter.string(from: ennddate.date)
+           let date2 = dateFormatter.date(from: selectedDate2)
+           
+            
+            let resultarray = focusSessions.filter { $0.date >= date1! && $0.date <= date2!}
+            self.currentSessions = resultarray
+           var dict: [Date: [Session]] = [:]
+           for i in currentSessions {
+               let keys = dict.keys
+               if keys.contains(i.date) {
+                   dict[i.date]?.append(i)
+               } else {
+                   dict[i.date] = [i]
+               }
+           }
+           self.currentDict = dict
+            self.StatsTableview.reloadData()
+        }
+
     // MARK: - Handlers
     
     @IBAction func barTypeButtonHandler(_ sender: UIButton) {
@@ -123,8 +186,19 @@ class DetailViewController: UIViewController {
                         DispatchQueue.main.async {
                             // Populate the array from the document collection
                             for session in dbCollection.documents {
-                                self.focusSessions.append((date: session.get("date") as! String, workingOn: session.get("workingOn") as! String, time: (hours: session.get("timeHours") as! Int, minutes: session.get("timeMinutes") as! Int, seconds: session.get("timeSeconds") as! Int)))
+                                let dateString = session.get("date")
+                                let dateFormatter = DateFormatter()
+                                dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+                                dateFormatter.dateFormat = "MM/dd/yyyy"
+                                if let date = dateFormatter.date(from: dateString as! String) {
+                                                                  
+                                    self.focusSessions.append(Session(date: date, workingOn: session.get("workingOn") as! String, time: (hours: session.get("timeHours") as! Int, minutes: session.get("timeMinutes") as! Int, seconds: session.get("timeSeconds") as! Int)))
+                                    }
+                                //                                    self.focusSessions.append((date: date , workingOn: session.get("workingOn") as! String, time: (hours: session.get("timeHours") as! Int, minutes: session.get("timeMinutes") as! Int, seconds: session.get("timeSeconds") as! Int)))
+
                             }
+                            self.filter()
+                            self.StatsTableview.reloadData()
                         }
                     }
                 } else {
@@ -287,5 +361,48 @@ class DetailViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    // MARK: - Stats Tableview functions
+        
+        
+        
+        func numberOfSections(in tableView: UITableView) -> Int {
+            return currentDict.keys.count
+        }
+        
+        func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+            let dates = Array(currentDict.keys)
+            let dateformatter = DateFormatter()
+            dateformatter.dateFormat = "MM/dd/yyyy"
+            let title = dateformatter.string(from: dates[section])
+            return title
+        }
+        
+        func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+            let keys = Array(currentDict.keys)
+            let sec = keys[section]
+            let totalCount = currentDict[sec]?.count
+            return totalCount!
+        }
+        
+        
+        func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: "StatsCell", for: indexPath)
+            
+            let sec = Array(currentDict.keys)[indexPath.section]
+            let cellData = currentDict[sec]![indexPath.row]
+            //configure cell
+            
+            cell.textLabel?.text = cellData.workingOn
+            cell.textLabel?.font = .systemFont(ofSize: 15)
+            cell.detailTextLabel?.font = .systemFont(ofSize: 10)
+            let timeHours = cellData.time.hours, timeMinutes = cellData.time.minutes, timeSeconds = cellData.time.seconds
+            cell.detailTextLabel?.text = "Worked for \(timeHours) hours, \(timeMinutes) minutes and \(timeSeconds) seconds"
+            
+            return cell
+            
+        }
+
 
 }
