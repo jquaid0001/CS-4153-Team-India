@@ -46,7 +46,7 @@ class ChartMaker {
         let l = barChart.legend
         l.horizontalAlignment = .center
         l.verticalAlignment = .bottom
-        l.orientation = .vertical
+        l.orientation = .horizontal
         l.drawInside = false
         l.form = .line
         l.formSize = 9

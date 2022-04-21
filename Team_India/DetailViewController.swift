@@ -72,7 +72,15 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 ennddate.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged)
 
         // Get the data from Firestore
-        getFirestoreData()
+        self.getFirestoreData()
+        self.filter()
+        
+        
+        // table view
+        view.addSubview(StatsTableview)
+        StatsTableview.delegate = self
+        StatsTableview.dataSource = self
+        
         
         // Show the bar graph as the default graph
         
@@ -80,11 +88,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.barGraph.frame = self.graphViewPlaceholder.frame
         self.view.addSubview(self.barGraph)
         
-        // table view
-        view.addSubview(StatsTableview)
-        StatsTableview.delegate = self
-        StatsTableview.dataSource = self
-        filter()
+        
 
 
     }
@@ -96,33 +100,37 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     // Getting the dates when we change
     @objc func dateChanged(_ sender: UIDatePicker) {
-            self.filter()
-        }
+        self.filter()
+        presentedViewController?.dismiss(animated: true, completion: nil)
+    }
     
     // filter function
     func filter(){
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "MM/dd/yyyy"
-            dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-            let selectedDate = dateFormatter.string(from: startdate.date)
-            let date1 = dateFormatter.date(from: selectedDate)
-            let selectedDate2 = dateFormatter.string(from: ennddate.date)
-           let date2 = dateFormatter.date(from: selectedDate2)
-           
-            
-            let resultarray = focusSessions.filter { $0.date >= date1! && $0.date <= date2!}
-            self.currentSessions = resultarray
-           var dict: [Date: [Session]] = [:]
-           for i in currentSessions {
-               let keys = dict.keys
-               if keys.contains(i.date) {
-                   dict[i.date]?.append(i)
-               } else {
-                   dict[i.date] = [i]
-               }
-           }
-           self.currentDict = dict
-            self.StatsTableview.reloadData()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd/yyyy"
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        let selectedDate = dateFormatter.string(from: startdate.date)
+        let date1 = dateFormatter.date(from: selectedDate)
+        let selectedDate2 = dateFormatter.string(from: ennddate.date)
+        let date2 = dateFormatter.date(from: selectedDate2)
+       
+        
+        let resultarray = focusSessions.filter { $0.date >= date1! && $0.date <= date2!}
+        self.currentSessions = resultarray
+        var dict: [Date: [Session]] = [:]
+        for i in currentSessions {
+            let keys = dict.keys
+            if keys.contains(i.date) {
+                dict[i.date]?.append(i)
+            } else {
+                dict[i.date] = [i]
+            }
+        }
+        self.currentDict = dict
+        self.StatsTableview.reloadData()
+        self.barGraph.data = setBarGraphData(fromDate: startDatePicker.date, toDate: ennddate.date)
+        self.barGraph.notifyDataSetChanged()
+
         
         for (key, value) in currentDict {
             print("day is \(key)")
@@ -240,23 +248,13 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         print(numDays)
         
         
-        #warning("fix this. This is static data, need to use a filtered array using the filter Sai wrote")
-        let filteredArray = [
-            (date: "4/14/2022", workingOn: "setting up stuff", time:(hours: 1, minutes: 3, seconds: 2)),
-            (date: "4/14/2022", workingOn: "stuff in 4/14", time:(hours: 3, minutes: 3, seconds: 2)),
-            (date: "4/14/2022", workingOn: "still in 4/14", time:(hours: 2, minutes: 3, seconds: 2)),
-            (date: "4/15/2022", workingOn: "now in 4/15", time:(hours: 8, minutes: 3, seconds: 2)),
-
-        ]
-        
-        let dataDictionary = Dictionary.init(grouping: filteredArray, by: { $0.date } )
         
         var entries: [[BarChartDataEntry]] = [[BarChartDataEntry]]()
         
         var dailySessionTimes: [[Double]] = [[Double]]()
         
         var dailySessionIndex = 0
-        for (key, session) in dataDictionary {
+        for (key, session) in currentDict {
             for sessionNumber in session {
                 if dailySessionIndex > dailySessionTimes.count - 1 {
                     dailySessionTimes.append([Double]())
@@ -271,44 +269,28 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
         
         
-        for i in 0..<dataDictionary.keys.count {
+        for i in 0..<currentDict.keys.count {
             if i > entries.count - 1 {
                 entries.append([BarChartDataEntry]())
             }
             entries[i].append(BarChartDataEntry(x: Double(i), yValues: dailySessionTimes[i]))
         }
         
-        /*
-        // Add the entries from the dataDictionary to their respective entries position
-        var day = 0
-        for (key, session) in dataDictionary {
-            var entriesIndex = 0
-            for sessionNumber in session {
-                if entriesIndex > entries.count - 1 {
-                    entries.append([BarChartDataEntry]())
-                }
-                entries[entriesIndex].append(BarChartDataEntry(x: Double(day), y: Double(sessionNumber.time.hours)))
-                print("\(key) : \(sessionNumber.workingOn)")
-                entriesIndex += 1
-            }
-            day += 1
-        }
-         */
-        
         
         var dataSets = [BarChartDataSet]()
         
         var labels: [String] = [String]()
 
-        for key in dataDictionary.keys {
-            labels.append(key)
+        #warning("need this fixed to convert date to string and store in this labels array")
+        for key in currentDict.keys {
+            //labels.append(key)
         }
         
         // Initialize the dataSets array with the needed number of BarCharDataSets
         for i in 0..<entries.count {
             dataSets.append(BarChartDataSet())
             dataSets[i] = BarChartDataSet(entries: entries[i], label: "Session \(i)")
-            dataSets[i].colors = [.green, .blue, .yellow, .cyan, .magenta]
+            dataSets[i].colors = [.systemMint, .green, .blue, .yellow, .cyan, .magenta, .purple, .red]
         }
         
         for i in 0..<entries.count {
