@@ -155,13 +155,27 @@ class DetailViewController: UIViewController {
         let numDays = (Calendar.current.dateComponents([.day], from: fromDate, to: toDate).day!) + 1
         print(numDays)
         
-        let filteredArray = [(date: "4/14/2022", workingOn: "setting up stuff", time:(4, 3, 2))]
+        let filteredArray = [
+            (date: "4/14/2022", workingOn: "setting up stuff", time:(hours: 4, minutes: 3, seconds: 2)),
+            (date: "4/14/2022", workingOn: "setting up stuff", time:(hours: 4, minutes: 3, seconds: 2)),
+            (date: "4/15/2022", workingOn: "setting up stuff", time:(hours: 4, minutes: 3, seconds: 2))
+        ]
+        
+        var dataDictionary = Dictionary.init(grouping: filteredArray, by: { $0.date } )
+        
+        for entry in dataDictionary {
+            print(entry)
+        }
         
         var entries: [[BarChartDataEntry]] = [[BarChartDataEntry]]()
         
         // Create BarCharDataEntry arrays inside of entries prior to populating with focusSessions
         for _ in 0..<numDays {
             entries.append([BarChartDataEntry]())
+        }
+        
+        for i in 0..<filteredArray.count {
+            entries[i].append(BarChartDataEntry(x: Double(i), y: Double(filteredArray[i].time.hours)))
         }
         
         print(entries.count)
@@ -176,24 +190,24 @@ class DetailViewController: UIViewController {
         
         var dataSets = [BarChartDataSet]()
         
-        var labels: [String] = []
-        for i in 1...entries.count {
-            labels[i] = filteredArray[i].date
+        var labels: [String] = [String]()
+        for i in 0..<entries.count {
+            labels.append(filteredArray[i].date)
         }
         
         // Initialize the dataSets array with the needed number of BarCharDataSets
-        for i in 1...numDays {
-            dataSets[i] = BarChartDataSet(label: labels[i])
+        for i in 0..<numDays {
+            dataSets.append(BarChartDataSet(label: labels[i]))
         }
         
         // Build each of the data sets with the entries
-        for i in 1...entries.count {
+        for i in 0..<entries.count {
             for entry in entries[i] {
                 dataSets[i].append(entry)
             }
         }
         
-        for entry in dataSets[1] {
+        for entry in dataSets[0] {
             print(entry)
         }
         
