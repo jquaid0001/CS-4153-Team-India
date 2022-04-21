@@ -171,6 +171,32 @@ class DetailViewController: UIViewController {
         
         var entries: [[BarChartDataEntry]] = [[BarChartDataEntry]]()
         
+        var dailySessionTimes: [[Double]] = [[Double]]()
+        
+        var dailySessionIndex = 0
+        for (key, session) in dataDictionary {
+            for sessionNumber in session {
+                if dailySessionIndex > dailySessionTimes.count - 1 {
+                    dailySessionTimes.append([Double]())
+                }
+                dailySessionTimes[dailySessionIndex].append(Double(sessionNumber.time.hours))
+            }
+            dailySessionIndex += 1
+        }
+        
+        for sessionTimes in dailySessionTimes {
+            print(dailySessionTimes)
+        }
+        
+        
+        for i in 0..<dataDictionary.keys.count {
+            if i > entries.count - 1 {
+                entries.append([BarChartDataEntry]())
+            }
+            entries[i].append(BarChartDataEntry(x: Double(i), yValues: dailySessionTimes[i]))
+        }
+        
+        /*
         // Add the entries from the dataDictionary to their respective entries position
         var day = 0
         for (key, session) in dataDictionary {
@@ -185,7 +211,8 @@ class DetailViewController: UIViewController {
             }
             day += 1
         }
-
+         */
+        
         
         var dataSets = [BarChartDataSet]()
         
