@@ -144,6 +144,8 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.barGraph.data = setBarGraphData()
         self.barGraph.notifyDataSetChanged()
         self.barGraph.animate(yAxisDuration: 2.5)
+        self.lineGraph.data = setLineGraphData()
+        self.lineGraph.notifyDataSetChanged()
         
         }
 
