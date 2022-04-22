@@ -29,21 +29,22 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var ennddate: UIDatePicker!
     @IBOutlet weak var startdate: UIDatePicker!
     
-    
+    // The struct for the sessions
     struct Session {
             let date: Date
             let workingOn: String
             let time: (hours: Int, minutes: Int, seconds: Int)
         }
     
+    // An array of all focuSessions
     private var focusSessions: [Session] = []
+    // An array representing the currently selected focusSessions by date
     private var currentSessions: [Session] = []
+    // A dictionary that contains keys (dates) and their respective focusSessions grouped
     private var currentDict: [Date: [Session]] = [:]
     
-    
+    //Store the dates of each day in String form for labeling the data in the graph
     var labels: [String] = [String]()
-    // Array of focusSession tuples for graph display
-    //private var focusSessions: [(date: String, workingOn: String, time:(hours: Int, minutes: Int, seconds: Int ))] = []
     
     // The vars needed to create graphs
     lazy var barGraph: BarChartView = {
@@ -68,12 +69,11 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         // Set the color of the logout button to white for visibility
         self.navigationController?.navigationBar.tintColor = UIColor.black
         
-        // date picker
+        // date picker init
         startdate.datePickerMode = .date
         startdate.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged)
         ennddate.datePickerMode = .date
         ennddate.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged)
-
         // Start with grabbing sessions for 5 days prior to the current date rather than just for the
         //      current day.
         if let date = Calendar.current.date(byAdding: .day, value: -5, to: Date()) {
@@ -82,6 +82,8 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         // Get the data from Firestore
         self.getFirestoreData()
+        
+        // Filter the data retrieved from Firestore based on dataPicker dates
         self.filter()
         
         
@@ -91,7 +93,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         StatsTableview.dataSource = self
         
         
-        // Show the bar graph as the default graph
+        // Show the bar graph as the default graph when the user first arrives
         self.barGraph.rightAxis.enabled = false
         self.barGraph.frame = self.graphViewPlaceholder.frame
         self.view.addSubview(self.barGraph)
@@ -101,32 +103,35 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        
-        
-    }
-    
-    // Getting the dates when we change
+    // Getting the dates from the datePickers when the date is changed in either picker
     @objc func dateChanged(_ sender: UIDatePicker) {
+        // When the date changes, call filter() to filter the array of focusSessins
         self.filter()
+        // Dismiss the datePicker calendar so the user doesn't have to tap off of it to close it
         presentedViewController?.dismiss(animated: true, completion: nil)
     }
     
     // filter function
     func filter(){
+        // Format the date as MM/DD/YYYY
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM/dd/yyyy"
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        
+        // Get the startdate from datePicker and format it as a string
         let selectedDate = dateFormatter.string(from: startdate.date)
+        // Get a Date value from the picker as well
         let date1 = dateFormatter.date(from: selectedDate)
         let selectedDate2 = dateFormatter.string(from: ennddate.date)
         let date2 = dateFormatter.date(from: selectedDate2)
        
         
+        // resultarray is the filtered focusSessions that were obtained from Firestore
         let resultarray = focusSessions.filter { $0.date >= date1! && $0.date <= date2!}
         self.currentSessions = resultarray
         var dict: [Date: [Session]] = [:]
         
+        // Sort the focusSessions into a dictionary and group by date of focusSession
         for i in currentSessions {
             let keys = dict.keys
             if keys.contains(i.date) {
@@ -136,10 +141,15 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
             }
         }
         
+        // Assign the dict created to currentDict
         self.currentDict = dict
+        // Reload the tableView to display the filtered data
         self.StatsTableview.reloadData()
+        // Set the barGraph data to the filtered data
         self.barGraph.data = setBarGraphData()
+        // Notify the barGraph that the dataSet changed
         self.barGraph.notifyDataSetChanged()
+        // Animate the barGraph
         self.barGraph.animate(yAxisDuration: 2.5)
         
         }
@@ -213,10 +223,10 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
                                                                   
                                     self.focusSessions.append(Session(date: date, workingOn: session.get("workingOn") as! String, time: (hours: session.get("timeHours") as! Int, minutes: session.get("timeMinutes") as! Int, seconds: session.get("timeSeconds") as! Int)))
                                     }
-                                //                                    self.focusSessions.append((date: date , workingOn: session.get("workingOn") as! String, time: (hours: session.get("timeHours") as! Int, minutes: session.get("timeMinutes") as! Int, seconds: session.get("timeSeconds") as! Int)))
-
                             }
+                            // Filter the data that was obtained
                             self.filter()
+                            // Reload the tableView data to show the filtered data
                             self.StatsTableview.reloadData()
                         }
                     }
@@ -253,7 +263,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         // Used to keep track of the current day index
         var dailySessionIndex = 0
         // Iterate over the currentDict and populate the dailySessionTimes with each session data
-        for (key, session) in currentDict {
+        for (_, session) in currentDict {
             for sessionNumber in session {
                 if dailySessionIndex > dailySessionTimes.count - 1 {
                     dailySessionTimes.append([Double]())
@@ -270,6 +280,8 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
         
         
+        // Set up each entry in the barChart with an array of yValues (the total time of each focusSession
+        //      for that day
         for i in 0..<currentDict.keys.count {
             if i > entries.count - 1 {
                 entries.append([BarChartDataEntry]())
@@ -277,18 +289,16 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
             entries[i].append(BarChartDataEntry(x: Double(i), yValues: dailySessionTimes[i]))
         }
         
-        
+        // The var that stores an array of BarCharDataSets
         var dataSets = [BarChartDataSet]()
         
         
 
-       // #warning("need this fixed to convert date to string and store in this labels array")
+        // Format the date to a string as MM/DD/YYYY
         let dateformatter = DateFormatter()
         dateformatter.dateFormat = "MM/dd/yyyy"
+        // Add each date to the labels aray
         for key in currentDict.keys {
-            //let dates = Array(currentDict.keys)
-            
-            //let title = dateformatter.string(from: key)
             labels.append(dateformatter.string(from: key))
         }
         
@@ -296,6 +306,8 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         for i in 0..<entries.count {
             dataSets.append(BarChartDataSet())
             dataSets[i] = BarChartDataSet(entries: entries[i], label: labels[i] )//"Session \(i)")
+            // Set the color of the stacked bars (each focus session in a day) so you can distinguish
+            //      between the sessions
             dataSets[i].colors = [.systemMint, .green, .blue, .yellow, .cyan, .magenta, .purple, .red]
         }
         
@@ -308,8 +320,10 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
          */
         
+        // Create BarCharData
         let data = BarChartData(dataSets: dataSets)
         
+        // Return the data to be applied to the barChart
         return data
     }
     
@@ -363,44 +377,49 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
     // MARK: - Stats Tableview functions
         
         
+    // Set the number of sections to the number of days that are being reported on
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return currentDict.keys.count
+    }
+     
+    // Set the title for each section to be the date of the selected dates
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        let dates = Array(currentDict.keys.sorted(by: {$0 > $1}))
+        let dateformatter = DateFormatter()
+        dateformatter.dateFormat = "MM/dd/yyyy"
+        let title = dateformatter.string(from: dates[section])
+        return title
+    }
+    
+    // Set the number of rows to the number of focus sessions for each section (date)
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        let keys = Array(currentDict.keys.sorted(by: {$0 > $1}))
+        let sec = keys[section]
+        let totalCount = currentDict[sec]?.count
+        return totalCount!
+    }
+    
+    // Populate the cells with the focusSessions
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        func numberOfSections(in tableView: UITableView) -> Int {
-            return currentDict.keys.count
-        }
+        let cell = tableView.dequeueReusableCell(withIdentifier: "StatsCell", for: indexPath)
         
-        func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-            let dates = Array(currentDict.keys.sorted(by: {$0 > $1}))
-            let dateformatter = DateFormatter()
-            dateformatter.dateFormat = "MM/dd/yyyy"
-            let title = dateformatter.string(from: dates[section])
-            return title
-        }
+        let sec = Array(currentDict.keys.sorted(by: {$0 > $1}))[indexPath.section]
+        let cellData = currentDict[sec]![indexPath.row]
+        //configure cell
         
-        func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            let keys = Array(currentDict.keys.sorted(by: {$0 > $1}))
-            let sec = keys[section]
-            let totalCount = currentDict[sec]?.count
-            return totalCount!
-        }
+        // Set the cell label as what was being done that day
+        cell.textLabel?.text = cellData.workingOn
+        cell.textLabel?.font = .systemFont(ofSize: 15)
+        cell.detailTextLabel?.font = .systemFont(ofSize: 10)
         
+        // Set the subtext to be the time spent for that focusSession
+        let timeHours = cellData.time.hours, timeMinutes = cellData.time.minutes, timeSeconds = cellData.time.seconds
+        cell.detailTextLabel?.text = "Worked for \(timeHours) hours, \(timeMinutes) minutes and \(timeSeconds) seconds"
         
-        func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-            
-            let cell = tableView.dequeueReusableCell(withIdentifier: "StatsCell", for: indexPath)
-            
-            let sec = Array(currentDict.keys.sorted(by: {$0 > $1}))[indexPath.section]
-            let cellData = currentDict[sec]![indexPath.row]
-            //configure cell
-            
-            cell.textLabel?.text = cellData.workingOn
-            cell.textLabel?.font = .systemFont(ofSize: 15)
-            cell.detailTextLabel?.font = .systemFont(ofSize: 10)
-            let timeHours = cellData.time.hours, timeMinutes = cellData.time.minutes, timeSeconds = cellData.time.seconds
-            cell.detailTextLabel?.text = "Worked for \(timeHours) hours, \(timeMinutes) minutes and \(timeSeconds) seconds"
-            
-            return cell
-            
-        }
+        return cell
+        
+    }
 
 
 }
