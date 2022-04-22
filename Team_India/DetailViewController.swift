@@ -46,7 +46,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
     // The vars needed to create graphs
     lazy var barGraph: BarChartView = {
         let barChart = ChartMaker.makeBarChart()
-        barChart.data = setBarGraphData(fromDate: startDatePicker.date, toDate: startDatePicker.date)
+        barChart.data = setBarGraphData()
  
         return barChart
     }()
@@ -89,7 +89,6 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         
         // Show the bar graph as the default graph
-        
         self.barGraph.rightAxis.enabled = false
         self.barGraph.frame = self.graphViewPlaceholder.frame
         self.view.addSubview(self.barGraph)
@@ -134,7 +133,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
         self.currentDict = dict
         self.StatsTableview.reloadData()
-        self.barGraph.data = setBarGraphData(fromDate: startDatePicker.date, toDate: ennddate.date)
+        self.barGraph.data = setBarGraphData()
         self.barGraph.notifyDataSetChanged()
         self.barGraph.animate(yAxisDuration: 2.5)
         
@@ -240,26 +239,28 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.present(alertController, animated: true)
     }
     
-    func setBarGraphData(fromDate: Date, toDate: Date) -> BarChartData {
-        // Get the number of days to display. Pass the from and to date to Calendar, grab the number of days
-        //      from the result, then add 1 since we always want to include the start date.
-        let numDays = (Calendar.current.dateComponents([.day], from: fromDate, to: toDate).day!) + 1
-        print(numDays)
-        
-        
-        
+    func setBarGraphData() -> BarChartData {
+        // Array of BarChartDataEntry arrays that store the data entries
         var entries: [[BarChartDataEntry]] = [[BarChartDataEntry]]()
-        
+        // Array of Double arrays that stores the session times
         var dailySessionTimes: [[Double]] = [[Double]]()
         
+        // Used to keep track of the current day index
         var dailySessionIndex = 0
+        // Iterate over the currentDict and populate the dailySessionTimes with each session data
         for (key, session) in currentDict {
             for sessionNumber in session {
                 if dailySessionIndex > dailySessionTimes.count - 1 {
                     dailySessionTimes.append([Double]())
                 }
-                dailySessionTimes[dailySessionIndex].append(Double(sessionNumber.time.hours))
+                // Sum up the hours, minutes, and seconds
+                var totalTimeSpent = 0.0
+                totalTimeSpent = Double(sessionNumber.time.hours) + (Double(sessionNumber.time.minutes) / 60) + (Double(sessionNumber.time.seconds) / 3600)
+
+                // Add the totalTimeSpent for the session to the dailySessionTimes array
+                dailySessionTimes[dailySessionIndex].append(Double(totalTimeSpent))
             }
+            // Next index for the dailySessionsArray
             dailySessionIndex += 1
         }
         

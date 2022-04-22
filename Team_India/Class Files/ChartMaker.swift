@@ -40,7 +40,6 @@ class ChartMaker {
         yAxis.labelTextColor = .black
         yAxis.gridColor = .black
         yAxis.axisMinimum = 0
-        yAxis.axisMaximum = 12
       
         // Configure legend
         let l = barChart.legend
@@ -55,29 +54,6 @@ class ChartMaker {
         
         barChart.animate(yAxisDuration: 2.5)
         
-        // Supply data
-        var entries = [BarChartDataEntry]()
-        var entries2 = [BarChartDataEntry]()
-        
-        // **FIXME** The method in which to pull data; here are two dataSets atm
-        // Format [(date:String, time:(hours:Int, minutes: Int, seconds:Int ))]
-        for x in 0..<7 {
-            entries.append(BarChartDataEntry(x: Double(x), y: Double.random(in: 4...6)))
-            entries2.append(BarChartDataEntry(x: Double(x), y: Double.random(in: 0...3)))
-        }
-       
-        
-        // Data set build
-        let set = BarChartDataSet(entries: entries, label: "Session 1")
-        let set2 = BarChartDataSet(entries: entries2, label: "Session 2")
-        
-        
-        set.setColor(UIColor(red: 0.0, green: 0.42, blue: 0.46, alpha: 1.0))  // **FIXME**
-        set2.setColor(UIColor(red: 0.75, green: 0.85, blue: 0.86, alpha: 1.0))
-        
-        let data = BarChartData(dataSets: [set, set2])
-        barChart.data = data
-
         return barChart
     }
     
