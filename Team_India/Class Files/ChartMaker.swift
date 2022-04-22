@@ -42,6 +42,7 @@ class ChartMaker {
         yAxis.labelTextColor = .black
         yAxis.gridColor = .black
         yAxis.axisMinimum = 0
+        
       
         // Configure legend
         let l = barChart.legend
@@ -86,6 +87,8 @@ class ChartMaker {
         lineChart.xAxis.setLabelCount(6, force: false)
         lineChart.xAxis.axisLineColor = .black
         lineChart.xAxis.gridColor = .black
+        lineChart.xAxis.granularityEnabled = true
+        lineChart.xAxis.granularity = 1
         
         // Animate the lineChart in the xAxis direction
         lineChart.animate(xAxisDuration: 2.5)
