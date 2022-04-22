@@ -48,6 +48,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
     // The vars needed to create graphs
     lazy var barGraph: BarChartView = {
         let barChart = ChartMaker.makeBarChart()
+        barChart.xAxis.valueFormatter = IndexAxisValueFormatter(values:labels)
         barChart.data = setBarGraphData()
         //barChart.xAxis.valueFormatter = IndexAxisValueFormatter(values: labels)
  
