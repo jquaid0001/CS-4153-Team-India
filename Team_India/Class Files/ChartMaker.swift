@@ -78,7 +78,7 @@ class ChartMaker {
         yAxis.labelTextColor = .black
         yAxis.gridColor = .black
         yAxis.axisMinimum = 0
-        yAxis.axisMaximum = 12
+        yAxis.axisMaximum = 22
         
         // Configure the xAxis settings for the lineChart
         lineChart.xAxis.labelPosition = .bottom
