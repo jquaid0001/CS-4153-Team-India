@@ -261,7 +261,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         // Used to keep track of the current day index
         var dailySessionIndex = 0
         // Iterate over the currentDict and populate the dailySessionTimes with each session data
-        for (key, session) in currentDict {
+        for (_, session) in currentDict {
             for sessionNumber in session {
                 if dailySessionIndex > dailySessionTimes.count - 1 {
                     dailySessionTimes.append([Double]())
@@ -337,17 +337,17 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
     //     Line Graph Drawing
     func setLineGraphData() -> ChartData {
         
-            #warning("need this fixed to convert date to string and store in this labels array")
-            for key in currentDict.keys {
+            //#warning("need this fixed to convert date to string and store in this labels array")
+        // for _ in currentDict.keys {
                 //labels.append(key)
-            }
+            //}
             
             var dataSets = LineChartDataSet()
 
             // Initialize the ChartDataSet array with the needed number of points
-            for _ in 0..<dailyTimeSpent.count {
+            for i in 0..<dailyTimeSpent.count {
                 
-                dataSets = LineChartDataSet(entries: dailyTimeSpent, label: "Day")
+                dataSets = LineChartDataSet(entries: dailyTimeSpent, label: labels[i])
                 dataSets.colors = ChartColorTemplates.material()
             }
             
