@@ -71,6 +71,12 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 ennddate.datePickerMode = .date
                 ennddate.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged)
 
+        // Start with grabbing sessions for 5 days prior to the current date rather than just for the
+        //      current day.
+        if let date = Calendar.current.date(byAdding: .day, value: -5, to: Date()) {
+            startdate.date = date
+        }
+        
         // Get the data from Firestore
         self.getFirestoreData()
         self.filter()
@@ -130,14 +136,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.StatsTableview.reloadData()
         self.barGraph.data = setBarGraphData(fromDate: startDatePicker.date, toDate: ennddate.date)
         self.barGraph.notifyDataSetChanged()
-
-        
-        for (key, value) in currentDict {
-            print("day is \(key)")
-            for session in value {
-                print(session)
-            }
-        }
+        self.barGraph.animate(yAxisDuration: 2.5)
         
         }
 
@@ -157,7 +156,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 self.barGraph.rightAxis.enabled = false
                 self.barGraph.frame = self.barGraph.frame
                 // Reanimate the graph
-                self.barGraph.animate(xAxisDuration: 2.5)
+                self.barGraph.animate(yAxisDuration: 2.5)
             }
         case selectLineButton:
             // Show the line graph

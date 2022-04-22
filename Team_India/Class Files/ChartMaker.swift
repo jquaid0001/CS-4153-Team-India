@@ -53,7 +53,7 @@ class ChartMaker {
         l.font = UIFont(name: "HelveticaNeue-Light", size: 12)!
         l.xEntrySpace = 6
         
-        barChart.animate(xAxisDuration: 2.5)
+        barChart.animate(yAxisDuration: 2.5)
         
         // Supply data
         var entries = [BarChartDataEntry]()

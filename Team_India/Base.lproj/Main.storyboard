@@ -524,7 +524,7 @@
                                 </constraints>
                             </stackView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qUV-Vv-amF">
-                                <rect key="frame" x="0.0" y="181" width="414" height="329"/>
+                                <rect key="frame" x="0.0" y="214" width="414" height="329"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -532,10 +532,10 @@
                                 </constraints>
                             </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="WjO-7v-5mw">
-                                <rect key="frame" x="0.0" y="630" width="414" height="212"/>
+                                <rect key="frame" x="0.0" y="542" width="414" height="300"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="212" id="651-7A-tYs"/>
+                                    <constraint firstAttribute="height" constant="300" id="651-7A-tYs"/>
                                 </constraints>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="StatsCell" id="Pzu-Ql-dto">
@@ -581,7 +581,7 @@
                                 </subviews>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Work Done on the above date range" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VZN-Ew-Uqk">
-                                <rect key="frame" x="70.5" y="566.5" width="273.5" height="20.5"/>
+                                <rect key="frame" x="70.5" y="516.5" width="273.5" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -596,10 +596,10 @@
                             <constraint firstItem="WjO-7v-5mw" firstAttribute="trailing" secondItem="qUV-Vv-amF" secondAttribute="trailing" id="9Hd-1M-yPS"/>
                             <constraint firstItem="qUV-Vv-amF" firstAttribute="leading" secondItem="Dw7-Lw-6YX" secondAttribute="leading" id="GQ1-Pj-x8E"/>
                             <constraint firstAttribute="bottom" secondItem="WjO-7v-5mw" secondAttribute="bottom" id="L7x-Bo-Qmb"/>
-                            <constraint firstItem="WjO-7v-5mw" firstAttribute="top" secondItem="VZN-Ew-Uqk" secondAttribute="bottom" constant="43" id="SCD-g5-tk9"/>
+                            <constraint firstItem="WjO-7v-5mw" firstAttribute="top" secondItem="VZN-Ew-Uqk" secondAttribute="bottom" constant="5" id="SCD-g5-tk9"/>
                             <constraint firstItem="wxo-9V-8gU" firstAttribute="top" secondItem="SSu-h8-Tv9" secondAttribute="bottom" constant="0.5" id="YMz-Pa-8PS"/>
                             <constraint firstItem="VZN-Ew-Uqk" firstAttribute="centerX" secondItem="WjO-7v-5mw" secondAttribute="centerX" id="cB5-pM-S3K"/>
-                            <constraint firstItem="qUV-Vv-amF" firstAttribute="top" secondItem="ra9-6z-2UJ" secondAttribute="top" constant="137" id="dr1-Cb-4gb"/>
+                            <constraint firstItem="qUV-Vv-amF" firstAttribute="top" secondItem="ra9-6z-2UJ" secondAttribute="top" constant="170" id="dr1-Cb-4gb"/>
                             <constraint firstItem="SSu-h8-Tv9" firstAttribute="top" secondItem="ra9-6z-2UJ" secondAttribute="top" constant="10" id="r3Y-6F-fJL"/>
                             <constraint firstItem="WjO-7v-5mw" firstAttribute="leading" secondItem="qUV-Vv-amF" secondAttribute="leading" id="sJD-df-QYS"/>
                         </constraints>
