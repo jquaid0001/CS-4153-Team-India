@@ -40,6 +40,8 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
     private var currentSessions: [Session] = []
     private var currentDict: [Date: [Session]] = [:]
     
+    
+    var labels: [String] = [String]()
     // Array of focusSession tuples for graph display
     //private var focusSessions: [(date: String, workingOn: String, time:(hours: Int, minutes: Int, seconds: Int ))] = []
     
@@ -47,6 +49,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
     lazy var barGraph: BarChartView = {
         let barChart = ChartMaker.makeBarChart()
         barChart.data = setBarGraphData()
+        //barChart.xAxis.valueFormatter = IndexAxisValueFormatter(values: labels)
  
         return barChart
     }()
@@ -67,9 +70,9 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         // date picker
         startdate.datePickerMode = .date
-                startdate.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged)
-                ennddate.datePickerMode = .date
-                ennddate.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged)
+        startdate.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged)
+        ennddate.datePickerMode = .date
+        ennddate.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged)
 
         // Start with grabbing sessions for 5 days prior to the current date rather than just for the
         //      current day.
@@ -123,6 +126,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let resultarray = focusSessions.filter { $0.date >= date1! && $0.date <= date2!}
         self.currentSessions = resultarray
         var dict: [Date: [Session]] = [:]
+        
         for i in currentSessions {
             let keys = dict.keys
             if keys.contains(i.date) {
@@ -131,6 +135,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 dict[i.date] = [i]
             }
         }
+        
         self.currentDict = dict
         self.StatsTableview.reloadData()
         self.barGraph.data = setBarGraphData()
@@ -275,17 +280,22 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         var dataSets = [BarChartDataSet]()
         
-        var labels: [String] = [String]()
+        
 
-        #warning("need this fixed to convert date to string and store in this labels array")
+       // #warning("need this fixed to convert date to string and store in this labels array")
+        let dateformatter = DateFormatter()
+        dateformatter.dateFormat = "MM/dd/yyyy"
         for key in currentDict.keys {
-            //labels.append(key)
+            //let dates = Array(currentDict.keys)
+            
+            //let title = dateformatter.string(from: key)
+            labels.append(dateformatter.string(from: key))
         }
         
         // Initialize the dataSets array with the needed number of BarCharDataSets
         for i in 0..<entries.count {
             dataSets.append(BarChartDataSet())
-            dataSets[i] = BarChartDataSet(entries: entries[i], label: "Session \(i)")
+            dataSets[i] = BarChartDataSet(entries: entries[i], label: labels[i] )//"Session \(i)")
             dataSets[i].colors = [.systemMint, .green, .blue, .yellow, .cyan, .magenta, .purple, .red]
         }
         
@@ -359,7 +369,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
         
         func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-            let dates = Array(currentDict.keys)
+            let dates = Array(currentDict.keys.sorted(by: {$0 > $1}))
             let dateformatter = DateFormatter()
             dateformatter.dateFormat = "MM/dd/yyyy"
             let title = dateformatter.string(from: dates[section])
@@ -367,7 +377,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
         
         func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            let keys = Array(currentDict.keys)
+            let keys = Array(currentDict.keys.sorted(by: {$0 > $1}))
             let sec = keys[section]
             let totalCount = currentDict[sec]?.count
             return totalCount!
@@ -378,7 +388,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "StatsCell", for: indexPath)
             
-            let sec = Array(currentDict.keys)[indexPath.section]
+            let sec = Array(currentDict.keys.sorted(by: {$0 > $1}))[indexPath.section]
             let cellData = currentDict[sec]![indexPath.row]
             //configure cell
             
