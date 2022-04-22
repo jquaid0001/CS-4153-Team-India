@@ -16,7 +16,7 @@ class ChartMaker {
         // Create bar chart
         let barChart = BarChartView()
         
-        let days = ["Sun", "Mon", "Tues", "Wed", "Thu", "Fri", "Sat"]
+        //let days = ["Sun", "Mon", "Tues", "Wed", "Thu", "Fri", "Sat"]
         
         barChart.dragEnabled = true
         barChart.backgroundColor = .systemFill
@@ -30,7 +30,7 @@ class ChartMaker {
         xAxis.labelTextColor = .black
         xAxis.gridColor = .black
         xAxis.granularityEnabled = true
-        xAxis.valueFormatter = IndexAxisValueFormatter(values:days)
+        //xAxis.valueFormatter = IndexAxisValueFormatter(values:days)
         xAxis.granularity = 1
         
         // Configure the Y Axis
