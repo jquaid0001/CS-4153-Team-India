@@ -403,13 +403,36 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         return currentDict.keys.count
     }
     
+    
     // Set the title for the sections as the dates that were selected
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let dates = Array(currentDict.keys.sorted(by: {$0 > $1}))
+        let sorting = currentDict.sorted(by: {$0.key > $1.key})
+        
+        var currentdate = [String]()
+        var currenttotaltime = [String]()
         let dateformatter = DateFormatter()
         dateformatter.dateFormat = "MM/dd/yyyy"
-        let title = dateformatter.string(from: dates[section])
-        return title
+        for (dt,ss) in sorting{
+            var totalTimeSpent = 0.0
+            for sessionNumber in ss{
+        
+        
+        totalTimeSpent = Double(sessionNumber.time.hours) + (Double(sessionNumber.time.minutes) / 60) //+ (Double(sessionNumber.time.seconds) / 3600)
+       
+        }
+            currentdate.append(dateformatter.string(from: dt))
+            currenttotaltime.append(String(format: "%.2f", totalTimeSpent))
+            
+        }
+       /* let dates = Array(currentDict.keys.sorted(by: {$0 > $1}))
+        let dateformatter = DateFormatter()
+        dateformatter.dateFormat = "MM/dd/yyyy"
+        let title = dateformatter.string(from: dates[section]) */
+        //let customheader = UILabel()
+        let title = currentdate[section]
+        let timespent = currenttotaltime[section]
+        
+        return "\(title)        time-spent:  \(timespent) Hours"
     }
     
     // The number of rows is the number of sessions that were in a day
