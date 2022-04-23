@@ -278,6 +278,8 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         // Line Chart
         var temp = Double()
         
+        // Clear prior data entries from dailyTimeSpent
+        dailyTimeSpent.removeAll()
         // Sum up the time spent each day and add it to the dailyTimeSpent array
         for (index, time) in dailySessionTimes.enumerated() {
             for times in time {
