@@ -11,7 +11,7 @@
 		2E0C3FC4280F25F500E42A62 /* LineGraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0C3FC3280F25F500E42A62 /* LineGraphViewController.swift */; };
 		2E0C3FC6280F260800E42A62 /* ThirdGraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0C3FC5280F260800E42A62 /* ThirdGraphViewController.swift */; };
 		2EB6144B280E6D4F0033D858 /* Charts in Frameworks */ = {isa = PBXBuildFile; productRef = 2EB6144A280E6D4F0033D858 /* Charts */; };
-		C54006F3281371BB0010C739 /* References@TeamIndia.pdf in Resources */ = {isa = PBXBuildFile; fileRef = C54006F2281371BB0010C739 /* References@TeamIndia.pdf */; };
+		C54006F3281371BB0010C739 /* References.pdf in Resources */ = {isa = PBXBuildFile; fileRef = C54006F2281371BB0010C739 /* References.pdf */; };
 		DD0B64C427D791F100E0FE9D /* FormValidationUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0B64C327D791F100E0FE9D /* FormValidationUtil.swift */; };
 		DD2B9693281038DE00158190 /* ChartMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD2B9692281038DE00158190 /* ChartMaker.swift */; };
 		DD2DE12527DA9EAB00A22663 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DD2DE12427DA9EAB00A22663 /* GoogleService-Info.plist */; };
@@ -19,6 +19,7 @@
 		DD2DE12A27DAA1A500A22663 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = DD2DE12927DAA1A500A22663 /* FirebaseAuth */; };
 		DD2DE12C27DAA1A500A22663 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = DD2DE12B27DAA1A500A22663 /* FirebaseDatabase */; };
 		DD2DE12F27DBAAEA00A22663 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = DD2DE12E27DBAAEA00A22663 /* FirebaseFirestore */; };
+		DD355D26281393B800515149 /* UserGuide.pdf in Resources */ = {isa = PBXBuildFile; fileRef = DD355D25281393B800515149 /* UserGuide.pdf */; };
 		DD3918CD27D18B7F008CD1D9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD3918CC27D18B7F008CD1D9 /* AppDelegate.swift */; };
 		DD3918CF27D18B7F008CD1D9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD3918CE27D18B7F008CD1D9 /* SceneDelegate.swift */; };
 		DD3918D427D18B7F008CD1D9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DD3918D227D18B7F008CD1D9 /* Main.storyboard */; };
@@ -36,10 +37,11 @@
 		2E0C3FC1280F25D700E42A62 /* BarGraphViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarGraphViewController.swift; sourceTree = "<group>"; };
 		2E0C3FC3280F25F500E42A62 /* LineGraphViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineGraphViewController.swift; sourceTree = "<group>"; };
 		2E0C3FC5280F260800E42A62 /* ThirdGraphViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdGraphViewController.swift; sourceTree = "<group>"; };
-		C54006F2281371BB0010C739 /* References@TeamIndia.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "References@TeamIndia.pdf"; sourceTree = "<group>"; };
+		C54006F2281371BB0010C739 /* References.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = References.pdf; sourceTree = "<group>"; };
 		DD0B64C327D791F100E0FE9D /* FormValidationUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormValidationUtil.swift; sourceTree = "<group>"; };
 		DD2B9692281038DE00158190 /* ChartMaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartMaker.swift; sourceTree = "<group>"; };
 		DD2DE12427DA9EAB00A22663 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		DD355D25281393B800515149 /* UserGuide.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = UserGuide.pdf; sourceTree = "<group>"; };
 		DD3918C927D18B7F008CD1D9 /* Team_India.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Team_India.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD3918CC27D18B7F008CD1D9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DD3918CE27D18B7F008CD1D9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -116,7 +118,8 @@
 				DD3918EB27D24F5C008CD1D9 /* RegistrationViewController.swift */,
 				DD3918E527D24F12008CD1D9 /* HomeViewController.swift */,
 				DD3918E927D24F2D008CD1D9 /* DetailViewController.swift */,
-				C54006F2281371BB0010C739 /* References@TeamIndia.pdf */,
+				C54006F2281371BB0010C739 /* References.pdf */,
+				DD355D25281393B800515149 /* UserGuide.pdf */,
 				DD3918D827D18B80008CD1D9 /* Assets.xcassets */,
 				DD3918DA27D18B80008CD1D9 /* LaunchScreen.storyboard */,
 				DD3918DD27D18B80008CD1D9 /* Info.plist */,
@@ -200,8 +203,9 @@
 			files = (
 				DD3918DC27D18B80008CD1D9 /* LaunchScreen.storyboard in Resources */,
 				DD2DE12527DA9EAB00A22663 /* GoogleService-Info.plist in Resources */,
+				DD355D26281393B800515149 /* UserGuide.pdf in Resources */,
 				DD3918D927D18B80008CD1D9 /* Assets.xcassets in Resources */,
-				C54006F3281371BB0010C739 /* References@TeamIndia.pdf in Resources */,
+				C54006F3281371BB0010C739 /* References.pdf in Resources */,
 				DD3918D427D18B7F008CD1D9 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

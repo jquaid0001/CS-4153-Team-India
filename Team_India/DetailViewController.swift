@@ -29,14 +29,16 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var ennddate: UIDatePicker!
     @IBOutlet weak var startdate: UIDatePicker!
     
-    
+    // The struct for the focusSessions
     struct Session {
             let date: Date
             let workingOn: String
             let time: (hours: Int, minutes: Int, seconds: Int)
         }
     
+    // Stores the entire collection of focusSessions from FireStore
     private var focusSessions: [Session] = []
+    // Stores the filtered sessions based on the dataPicker
     private var currentSessions: [Session] = []
     private var currentDict: [Date: [Session]] = [:]
     
@@ -98,15 +100,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.barGraph.rightAxis.enabled = false
         self.barGraph.frame = self.graphViewPlaceholder.frame
         self.view.addSubview(self.barGraph)
-        
-        
 
-
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        
-        
     }
     
     // Getting the dates when we change
@@ -116,7 +110,9 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     // filter function
-    func filter(){
+    func filter() {
+        
+        // Get the dates from the datePickers and format them
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM/dd/yyyy"
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
@@ -125,11 +121,12 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let selectedDate2 = dateFormatter.string(from: ennddate.date)
         let date2 = dateFormatter.date(from: selectedDate2)
        
-        
+        // Filter the data based on the start and end dates in the date pickers
         let resultarray = focusSessions.filter { $0.date >= date1! && $0.date <= date2!}
         self.currentSessions = resultarray
         var dict: [Date: [Session]] = [:]
         
+        // Group the focusSessions into a Dictionary by date
         for i in currentSessions {
             let keys = dict.keys
             if keys.contains(i.date) {
@@ -140,14 +137,16 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
         
         self.currentDict = dict
+        // Reload the tableView data
         self.StatsTableview.reloadData()
+        // Set the new data as the graph data and animate
         self.barGraph.data = setBarGraphData()
         self.barGraph.notifyDataSetChanged()
         self.barGraph.animate(yAxisDuration: 2.5)
         self.lineGraph.data = setLineGraphData()
         self.lineGraph.notifyDataSetChanged()
         
-        }
+    }
 
     // MARK: - Handlers
     
@@ -218,10 +217,10 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
                                                                   
                                     self.focusSessions.append(Session(date: date, workingOn: session.get("workingOn") as! String, time: (hours: session.get("timeHours") as! Int, minutes: session.get("timeMinutes") as! Int, seconds: session.get("timeSeconds") as! Int)))
                                     }
-                                //                                    self.focusSessions.append((date: date , workingOn: session.get("workingOn") as! String, time: (hours: session.get("timeHours") as! Int, minutes: session.get("timeMinutes") as! Int, seconds: session.get("timeSeconds") as! Int)))
-
                             }
+                            // Filter the data
                             self.filter()
+                            // Reload the data in the tableView
                             self.StatsTableview.reloadData()
                         }
                     }
@@ -233,8 +232,6 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         } else {
             print("user is not signed in")
         }
-
-    
     }
 
     // Shows error messages in an AlertController
@@ -281,16 +278,16 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         // Line Chart
         var temp = Double()
         
+        // Sum up the time spent each day and add it to the dailyTimeSpent array
         for (index, time) in dailySessionTimes.enumerated() {
             for times in time {
                 temp += times
             }
             dailyTimeSpent.append(ChartDataEntry(x: Double(index), y: Double(temp)))
             temp = 0.0
-            print("Daily Time Spent: ", dailyTimeSpent, "\n")
         }
         
-        
+        // Add the daily session times arrays for each BarChartDataEntry as an array of y-values
         for i in 0..<currentDict.keys.count {
             if i > entries.count - 1 {
                 entries.append([BarChartDataEntry]())
@@ -298,18 +295,14 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
             entries[i].append(BarChartDataEntry(x: Double(i), yValues: dailySessionTimes[i]))
         }
         
-        
+        // Stores the BarCharDataEntries
         var dataSets = [BarChartDataSet]()
         
-        
-
-       // #warning("need this fixed to convert date to string and store in this labels array")
+        // Format the date as MM/DD/YYYY
         let dateformatter = DateFormatter()
         dateformatter.dateFormat = "MM/dd/yyyy"
         for key in currentDict.keys {
-            //let dates = Array(currentDict.keys)
-            
-            //let title = dateformatter.string(from: key)
+            // Add the keys (date Strings) to the labels array
             labels.append(dateformatter.string(from: key))
         }
         
@@ -329,6 +322,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
          */
         
+        // Add the datasets as BarChartData
         let data = BarChartData(dataSets: dataSets)
         
         return data
@@ -336,25 +330,20 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     //     Line Graph Drawing
     func setLineGraphData() -> ChartData {
-        
-            //#warning("need this fixed to convert date to string and store in this labels array")
-        // for _ in currentDict.keys {
-                //labels.append(key)
-            //}
-            
-            var dataSets = LineChartDataSet()
+        // Set up a var to store the LineChartDataSet
+        var dataSets = LineChartDataSet()
 
-            // Initialize the ChartDataSet array with the needed number of points
-            for i in 0..<dailyTimeSpent.count {
-                
-                dataSets = LineChartDataSet(entries: dailyTimeSpent, label: labels[i])
-                dataSets.colors = ChartColorTemplates.material()
-            }
+        // Initialize the ChartDataSet array with the needed number of points
+        for i in 0..<dailyTimeSpent.count {
             
-            let data = LineChartData(dataSet: dataSets)
-
-            return data
+            dataSets = LineChartDataSet(entries: dailyTimeSpent, label: labels[i])
+            dataSets.colors = ChartColorTemplates.material()
         }
+        
+        let data = LineChartData(dataSet: dataSets)
+
+        return data
+    }
     
     
     // Sets the color of each individual session in the bar chart (the bar sections)
@@ -404,47 +393,49 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
     */
     
     // MARK: - Stats Tableview functions
+    
+    
+    // Set the number of sections in the tableView as the number of keys in the currentDict (dates)
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return currentDict.keys.count
+    }
+    
+    // Set the title for the sections as the dates that were selected
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        let dates = Array(currentDict.keys.sorted(by: {$0 > $1}))
+        let dateformatter = DateFormatter()
+        dateformatter.dateFormat = "MM/dd/yyyy"
+        let title = dateformatter.string(from: dates[section])
+        return title
+    }
+    
+    // The number of rows is the number of sessions that were in a day
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        let keys = Array(currentDict.keys.sorted(by: {$0 > $1}))
+        let sec = keys[section]
+        let totalCount = currentDict[sec]?.count
+        return totalCount!
+    }
+    
+    
+    // Populate the cells with data
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        let cell = tableView.dequeueReusableCell(withIdentifier: "StatsCell", for: indexPath)
         
+        let sec = Array(currentDict.keys.sorted(by: {$0 > $1}))[indexPath.section]
+        let cellData = currentDict[sec]![indexPath.row]
+        //configure cell
         
-        func numberOfSections(in tableView: UITableView) -> Int {
-            return currentDict.keys.count
-        }
+        // Set the label as the workingOn field for the day
+        cell.textLabel?.text = cellData.workingOn
+        cell.textLabel?.font = .systemFont(ofSize: 15)
+        // Set the sub title as the time spent working on the focusSession
+        cell.detailTextLabel?.font = .systemFont(ofSize: 10)
+        let timeHours = cellData.time.hours, timeMinutes = cellData.time.minutes, timeSeconds = cellData.time.seconds
+        cell.detailTextLabel?.text = "Worked for \(timeHours) hours, \(timeMinutes) minutes and \(timeSeconds) seconds"
         
-        func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-            let dates = Array(currentDict.keys.sorted(by: {$0 > $1}))
-            let dateformatter = DateFormatter()
-            dateformatter.dateFormat = "MM/dd/yyyy"
-            let title = dateformatter.string(from: dates[section])
-            return title
-        }
+        return cell
         
-        func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            let keys = Array(currentDict.keys.sorted(by: {$0 > $1}))
-            let sec = keys[section]
-            let totalCount = currentDict[sec]?.count
-            return totalCount!
-        }
-        
-        
-        func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-            
-            let cell = tableView.dequeueReusableCell(withIdentifier: "StatsCell", for: indexPath)
-            
-            let sec = Array(currentDict.keys.sorted(by: {$0 > $1}))[indexPath.section]
-            let cellData = currentDict[sec]![indexPath.row]
-            //configure cell
-            
-            cell.textLabel?.text = cellData.workingOn
-            cell.textLabel?.font = .systemFont(ofSize: 15)
-            cell.detailTextLabel?.font = .systemFont(ofSize: 10)
-            let timeHours = cellData.time.hours, timeMinutes = cellData.time.minutes, timeSeconds = cellData.time.seconds
-            cell.detailTextLabel?.text = "Worked for \(timeHours) hours, \(timeMinutes) minutes and \(timeSeconds) seconds"
-            
-            return cell
-            
-        }
-
-
+    }
 }
-// Commenting for Push

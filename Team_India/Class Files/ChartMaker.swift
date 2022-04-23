@@ -94,25 +94,6 @@ class ChartMaker {
         lineChart.animate(xAxisDuration: 2.5)
         
         
-        // Static data entries as an example
-        var entries = [ChartDataEntry]()
-        
-        for x in 0..<7 {
-            entries.append(ChartDataEntry(x: Double(x),
-                                             y: Double(x))
-                           )
-        }
-        
-        // Create a set of ChartDataEntries
-        let set = LineChartDataSet(entries: entries, label: "Day")
-        // Set the colors for the lineChart
-        set.colors = ChartColorTemplates.material()
-
-        // Create a LineChartData object
-        let data = LineChartData(dataSet: set)
-        // Set the lineChart data to data
-        lineChart.data = data
-        
         return lineChart
     }
 }
