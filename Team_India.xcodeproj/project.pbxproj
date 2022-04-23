@@ -41,7 +41,7 @@
 		DD0B64C327D791F100E0FE9D /* FormValidationUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormValidationUtil.swift; sourceTree = "<group>"; };
 		DD2B9692281038DE00158190 /* ChartMaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartMaker.swift; sourceTree = "<group>"; };
 		DD2DE12427DA9EAB00A22663 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		DD355D25281393B800515149 /* UserGuide.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = UserGuide.pdf; sourceTree = "<group>"; };
+		DD355D25281393B800515149 /* UserGuide.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = UserGuide.pdf; path = Team_India/UserGuide.pdf; sourceTree = "<group>"; };
 		DD3918C927D18B7F008CD1D9 /* Team_India.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Team_India.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD3918CC27D18B7F008CD1D9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DD3918CE27D18B7F008CD1D9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -93,6 +93,8 @@
 		DD3918C027D18B7F008CD1D9 = {
 			isa = PBXGroup;
 			children = (
+				C54006F2281371BB0010C739 /* References.pdf */,
+				DD355D25281393B800515149 /* UserGuide.pdf */,
 				DD3918CB27D18B7F008CD1D9 /* Team_India */,
 				DD3918CA27D18B7F008CD1D9 /* Products */,
 				DD2DE12D27DBAAEA00A22663 /* Frameworks */,
@@ -118,8 +120,6 @@
 				DD3918EB27D24F5C008CD1D9 /* RegistrationViewController.swift */,
 				DD3918E527D24F12008CD1D9 /* HomeViewController.swift */,
 				DD3918E927D24F2D008CD1D9 /* DetailViewController.swift */,
-				C54006F2281371BB0010C739 /* References.pdf */,
-				DD355D25281393B800515149 /* UserGuide.pdf */,
 				DD3918D827D18B80008CD1D9 /* Assets.xcassets */,
 				DD3918DA27D18B80008CD1D9 /* LaunchScreen.storyboard */,
 				DD3918DD27D18B80008CD1D9 /* Info.plist */,

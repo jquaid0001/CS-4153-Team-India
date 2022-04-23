@@ -258,7 +258,8 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         // Used to keep track of the current day index
         var dailySessionIndex = 0
         // Iterate over the currentDict and populate the dailySessionTimes with each session data
-        for (_, session) in currentDict {
+        let dataforgraph =  currentDict.sorted(by: {$0.key > $1.key})
+        for (_, session) in dataforgraph {
             for sessionNumber in session {
                 if dailySessionIndex > dailySessionTimes.count - 1 {
                     dailySessionTimes.append([Double]())
@@ -303,7 +304,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         // Format the date as MM/DD/YYYY
         let dateformatter = DateFormatter()
         dateformatter.dateFormat = "MM/dd/yyyy"
-        for key in currentDict.keys {
+        for (key,_) in dataforgraph {
             // Add the keys (date Strings) to the labels array
             labels.append(dateformatter.string(from: key))
         }
