@@ -212,7 +212,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
                                 let dateString = session.get("date")
                                 let dateFormatter = DateFormatter()
                                 dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-                                dateFormatter.dateFormat = "MM/dd/yyyy"
+                                dateFormatter.dateFormat = "MM/dd/yy"
                                 if let date = dateFormatter.date(from: dateString as! String) {
                                                                   
                                     self.focusSessions.append(Session(date: date, workingOn: session.get("workingOn") as! String, time: (hours: session.get("timeHours") as! Int, minutes: session.get("timeMinutes") as! Int, seconds: session.get("timeSeconds") as! Int)))
